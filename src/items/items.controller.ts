@@ -1,6 +1,6 @@
 import { Controller, Query } from '@nestjs/common';
 import { Body, Get, Patch, Post } from '@nestjs/common';
-import { ApiBody, ApiQuery } from '@nestjs/swagger';
+import { ApiBody, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 import { CreateItemDto } from './dtos/create-item.dto';
@@ -12,6 +12,7 @@ import { ItemsService } from './providers/items.service';
  * Controller for items
  */
 @Controller('items')
+@ApiTags('Items')
 export class ItemsController {
   constructor(private readonly itemsService: ItemsService) {}
 

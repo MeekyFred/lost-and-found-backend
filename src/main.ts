@@ -25,7 +25,6 @@ async function bootstrap() {
     .setTitle('Lost and Found API')
     .setDescription('The API for Lost and Found application')
     .setVersion('1.0')
-    .addTag('nestjs')
     .addServer('http://localhost:3000')
     .build(); // Swagger configuration
 

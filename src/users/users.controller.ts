@@ -1,7 +1,7 @@
 import { Controller, Param, ParseIntPipe, Query } from '@nestjs/common';
 import { Body, Delete, Get, Patch, Post } from '@nestjs/common';
 import { ApiBody, ApiParam, ApiQuery } from '@nestjs/swagger';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { CreateUserDto } from './dtos/create-user.dto';
 import { GetUsersQueryDto } from './dtos/get-users-query.dto';
@@ -12,6 +12,7 @@ import { UsersService } from './providers/users.service';
  * Controller for users
  */
 @Controller('users')
+@ApiTags('Users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 

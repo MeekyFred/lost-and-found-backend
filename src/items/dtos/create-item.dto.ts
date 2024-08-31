@@ -15,7 +15,6 @@ export class CreateItemDto {
   @ApiProperty({
     type: 'string',
     required: true,
-    readOnly: true,
     format: 'string',
     description: 'User name',
     example: 'iPhone 12 Pro',
@@ -33,7 +32,6 @@ export class CreateItemDto {
   @ApiProperty({
     type: 'string',
     required: true,
-    readOnly: true,
     format: 'string',
     description: 'Category of item',
     example: 'Electronics',
@@ -51,7 +49,6 @@ export class CreateItemDto {
   @ApiProperty({
     type: 'string',
     required: false,
-    readOnly: true,
     format: 'string',
     description: 'Description of item',
     example: 'This is an iPhone 12 Pro.',
@@ -82,7 +79,6 @@ export class CreateItemDto {
   @ApiProperty({
     type: 'url',
     required: true,
-    readOnly: true,
     format: 'url',
     description: 'Featured image URL of tag',
     example: 'https://example.com/image.jpg',
@@ -100,7 +96,6 @@ export class CreateItemDto {
   @ApiProperty({
     type: 'string',
     required: true,
-    readOnly: true,
     format: 'string',
     description: 'Location where item was found',
     example: 'Lagos',
@@ -118,7 +113,6 @@ export class CreateItemDto {
   @ApiProperty({
     type: 'date',
     required: true,
-    readOnly: true,
     format: 'date',
     description: 'Date item was found',
     example: '2021-09-01',

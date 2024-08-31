@@ -12,7 +12,6 @@ export class CreateClaimDto {
   @ApiProperty({
     type: 'date',
     required: true,
-    readOnly: true,
     format: 'date',
     description: 'Date item was lost',
     example: '2021-09-01',

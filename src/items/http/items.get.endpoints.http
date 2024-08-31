@@ -1,0 +1,18 @@
+{{
+    const date = new Date();
+    exports.from = date.toString();
+    exports.to = date.toString();
+}}
+
+GET /items 
+Host: localhost:3000
+?from={{from}}
+&to={{to}}
+
+GET /items
+Host: localhost:3000
+?limit=3
+&page=1
+
+GET /items/7
+Host: localhost:3000

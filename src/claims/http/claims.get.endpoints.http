@@ -1,0 +1,10 @@
+### Get All Claims
+GET http://localhost:3000/claims
+
+### Get Claim by ID
+GET http://localhost:3000/claims/4
+
+### Get Claims by query
+GET http://localhost:3000/claims
+?page=2
+&limit=50

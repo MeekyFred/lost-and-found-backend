@@ -1,0 +1,7 @@
+### Delete a claim by id
+DELETE /claims/1
+Host: http://localhost:3000
+
+### Soft delete a claim by id
+DELETE /claims/1/soft-delete
+Host: http://localhost:3000

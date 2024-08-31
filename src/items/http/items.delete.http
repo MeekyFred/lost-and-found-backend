@@ -1,0 +1,3 @@
+DELETE /items
+Host: localhost:3000
+?id=1

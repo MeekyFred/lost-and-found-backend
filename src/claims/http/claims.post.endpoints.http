@@ -1,0 +1,8 @@
+### Create a claim
+POST /claims/userId/itemId
+Host: http://localhost:3000
+Content-Type: application/json
+
+{
+    "dateLost": "2024-03-16T07:46:32+0000",
+}

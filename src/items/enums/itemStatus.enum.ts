@@ -1,0 +1,5 @@
+export enum ItemStatus {
+  CLAIMED = 'CLAIMED',
+  UNCLAIMED = 'UNCLAIMED',
+  PROCESSING = 'PROCESSING',
+}

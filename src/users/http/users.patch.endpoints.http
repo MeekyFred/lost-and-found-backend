@@ -1,0 +1,12 @@
+### Update a user (No route handler yet)
+PATCH /users/id
+Host: http://localhost:3000
+Content-Type: application/json
+
+{
+    "id": 1,
+    "name": "John doe",
+    "email": "johndoe@example.com",
+    "phoneNumber": "08012345678",
+    "password": "password123@",
+}

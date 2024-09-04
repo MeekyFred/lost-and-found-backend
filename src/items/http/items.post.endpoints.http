@@ -1,0 +1,14 @@
+POST /items HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+
+{
+    "name": "iPhone 12 Pro",
+    "category": "Electronics",
+    "description": "new-post-7",
+    "status": "UNCLAIMED",
+    "description": "This is an iPhone 12 Pro.",
+    "imageUrl": "http://localhost.com/images/image1.jpg",
+    "locationFound": "Lagos",
+    "dateFound": "2024-03-16T07:46:32+0000",
+}

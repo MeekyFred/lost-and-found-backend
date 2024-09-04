@@ -1,6 +1,8 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { ConfigService } from '@nestjs/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { config } from 'aws-sdk';
 
 import { AppModule } from './app.module';
 
@@ -8,7 +10,7 @@ import { AppModule } from './app.module';
  * Main function to bootstrap the application
  */
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule); // Create the application
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -18,8 +20,6 @@ async function bootstrap() {
       transformOptions: { enableImplicitConversion: true },
     }),
   ); // Enable global validation pipes
-
-  app.enableCors(); // Enable CORS
 
   const options = new DocumentBuilder()
     .setTitle('Lost and Found API')
@@ -32,7 +32,19 @@ async function bootstrap() {
 
   SwaggerModule.setup('api', app, document); // Setup Swagger
 
-  await app.listen(3000);
+  const configService = app.get(ConfigService); // Get the configuration service
+
+  config.update({
+    credentials: {
+      accessKeyId: configService.get('appConfig.awsAccessKeyId'),
+      secretAccessKey: configService.get('appConfig.awsSecretAccessKey'),
+    },
+    region: configService.get('appConfig.awsRegion'),
+  }); // Update AWS configuration
+
+  app.enableCors(); // Enable CORS
+
+  await app.listen(3000); // Start the application
 }
 
 bootstrap(); // Bootstrap the application

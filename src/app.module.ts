@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
+import { JwtModule } from '@nestjs/jwt';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -10,6 +12,12 @@ import { ItemsModule } from './items/items.module';
 import { ClaimsModule } from './claims/claims.module';
 import { PaginationModule } from './common/pagination/pagination.module';
 
+import jwtConfig from './auth/config/jwt.config';
+import { AccessTokenGuard } from './auth/guards/access-token/access-token.guard';
+import { AuthenticationGuard } from './auth/guards/authentication/authentication.guard';
+import { DataResponseInterceptor } from './common/interceptors/data-response/data-response.interceptor';
+import { UploadsModule } from './uploads/uploads.module';
+import { MailModule } from './mail/mail.module';
 import appConfig from './config/app.config';
 import databaseConfig from './config/database.config';
 import environmentSchema from './config/environment.validation';
@@ -42,13 +50,22 @@ const ENV = process.env.NODE_ENV; // Get the current environment
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
       }),
     }), // Load database configuration
+    ConfigModule.forFeature(jwtConfig),
+    JwtModule.registerAsync(jwtConfig.asProvider()),
     AuthModule,
     UsersModule,
     ItemsModule,
     ClaimsModule,
     PaginationModule,
+    UploadsModule,
+    MailModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    { provide: APP_GUARD, useClass: AuthenticationGuard }, // Protect all routes
+    { provide: APP_INTERCEPTOR, useClass: DataResponseInterceptor }, // Transform all responses
+    AccessTokenGuard,
+  ],
 })
 export class AppModule {}

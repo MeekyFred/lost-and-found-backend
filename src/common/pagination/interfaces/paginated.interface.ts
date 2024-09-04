@@ -1,4 +1,6 @@
 export interface Paginated<T> {
+  message: string;
+  success: boolean;
   data: T[];
   meta: {
     itemsPerPage: number;

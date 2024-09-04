@@ -1,6 +1,6 @@
 ### Register User Endpoint ###
 
-POST /api/auth/register HTTP/1.1
+POST /auth/register HTTP/1.1
 Host: localhost:3000
 Content-Type: application/json
 
@@ -14,7 +14,8 @@ Content-Type: application/json
 
 ### Login User Endpoint ###
 
-POST /api/auth/login HTTP/1.1
+POST /auth/login HTTP/1.1
+Host: localhost:3000
 Content-Type: application/json
 
 {
@@ -24,5 +25,6 @@ Content-Type: application/json
 
 ### Logout User Endpoint ###
 
-POST /api/auth/logout HTTP/1.1
+POST /auth/logout HTTP/1.1
+Host: localhost:3000
 Authorization: Bearer <access_token>

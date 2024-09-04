@@ -3,6 +3,7 @@ import { CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { ManyToOne, OneToOne } from 'typeorm';
 
 import { ClaimStatus } from './enums/claimStatus.enum';
+
 import { Item } from 'src/items/item.entity';
 import { User } from 'src/users/user.entity';
 
@@ -22,6 +23,13 @@ export class Claim {
     default: ClaimStatus.SUBMITTED,
   })
   status: ClaimStatus;
+
+  @Column({
+    type: 'date',
+    nullable: false,
+    default: new Date(),
+  })
+  dateLost: Date;
 
   @CreateDateColumn()
   readonly createdAt: Date;

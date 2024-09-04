@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { JoinColumn, OneToMany } from 'typeorm';
@@ -14,13 +15,21 @@ export class User {
   readonly id: number;
 
   @Column({ type: 'varchar', length: 96, nullable: false })
-  readonly name: string;
+  readonly firstName: string;
+
+  @Column({ type: 'varchar', length: 96, nullable: true, default: null })
+  lastName?: string;
 
   @Column({ type: 'varchar', length: 96, nullable: false, unique: true })
   readonly email: string;
 
-  @Column({ type: 'varchar', length: 96, nullable: false })
-  readonly password: string;
+  @Column({ type: 'varchar', length: 96, nullable: true, default: null })
+  @Exclude()
+  readonly password?: string;
+
+  @Column({ type: 'varchar', nullable: true, default: null })
+  @Exclude()
+  googleId?: string;
 
   @CreateDateColumn()
   readonly createdAt: Date;

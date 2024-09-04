@@ -45,7 +45,7 @@ export class ItemsService {
 
   /**
    * The method to get all items from the database
-   * @param query GetPostsQueryDto for getting queries
+   * @param query GetItemsQueryDto for getting queries
    * @returns Item[]
    * @throws BadRequestException or RequestTimeoutException
    */

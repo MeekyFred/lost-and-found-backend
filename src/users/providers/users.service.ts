@@ -1,12 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { ConflictException, NotFoundException } from '@nestjs/common';
 import { RequestTimeoutException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { FindOptionsWhere, Repository } from 'typeorm';
 
+import { CreateUserProvider } from './create-user.provider';
+import { FindOneUserByEmailProvider } from './find-one-user-by-email.provider';
 import { User } from '../user.entity';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { GetUsersQueryDto } from '../dtos/get-users-query.dto';
+import { GoogleUser } from '../interfaces/google-user-interface';
+
 import { Paginated } from 'src/common/pagination/interfaces/paginated.interface';
 import { PaginationProvider } from 'src/common/pagination/providers/pagination.provider';
 
@@ -16,8 +20,10 @@ import { PaginationProvider } from 'src/common/pagination/providers/pagination.p
 @Injectable()
 export class UsersService {
   constructor(
+    private readonly createUserProvider: CreateUserProvider,
     private readonly paginationProvider: PaginationProvider,
-    @InjectRepository(User) private readonly userRepository: Repository<User>,
+    private readonly findOneByEmailProvider: FindOneUserByEmailProvider,
+    @InjectRepository(User) private readonly usersRepository: Repository<User>,
   ) {}
 
   /**
@@ -26,40 +32,7 @@ export class UsersService {
    * @returns newUser
    */
   public async create(createUserDto: CreateUserDto) {
-    let existingUser = undefined;
-
-    try {
-      // Connect to db to find user
-      existingUser = await this.userRepository.findOne({
-        where: { email: createUserDto.email },
-      });
-    } catch (error) {
-      // Might save the details of the exception to db or log
-      // Information which is sensitive
-      throw new RequestTimeoutException(' ', {
-        description: 'Database connection error',
-      });
-    }
-
-    // Check if user already exists with same email
-    // Handle exception
-    if (existingUser) {
-      throw new BadRequestException('User already exists. Use another email.');
-    }
-
-    // Create User
-    let newUser = this.userRepository.create(createUserDto);
-
-    try {
-      // Connect to db to save new user
-      newUser = await this.userRepository.save(newUser);
-    } catch (error) {
-      throw new RequestTimeoutException('Unable to save user', {
-        description: 'Database connection error',
-      });
-    }
-
-    return newUser;
+    return this.createUserProvider.createUser(createUserDto);
   }
 
   /**
@@ -72,7 +45,7 @@ export class UsersService {
 
     try {
       // prettier-ignore
-      const users = await this.paginationProvider.paginateQuery({ limit, page }, this.userRepository);
+      const users = await this.paginationProvider.paginateQuery({ limit, page }, this.usersRepository);
 
       return users;
     } catch (error) {
@@ -85,13 +58,14 @@ export class UsersService {
   /**
    * The method to find a single user by ID
    * @param id
-   * @returns an empty array or an array of found user
+   * @returns User
+   * @throws RequestTimeOutException or NotFoundException
    */
   public async findOneById(id: number) {
     let user = undefined;
 
     try {
-      user = await this.userRepository.findOneBy({ id });
+      user = await this.usersRepository.findOneBy({ id });
     } catch (error) {
       throw new RequestTimeoutException('Unable to process request', {
         description: 'Database connection error',
@@ -103,5 +77,70 @@ export class UsersService {
     }
 
     return user;
+  }
+
+  /**
+   * The method to find a single user by ID
+   * @param id
+   * @returns User
+   * @throws RequestTimeOutException or UnauthorizedException
+   */
+  public async findOneByEmail(email: string): Promise<User> {
+    return await this.findOneByEmailProvider.findOneByEmail(email);
+  }
+
+  /**
+   * The method to find a single user by ID
+   * @param id
+   * @returns User
+   * @throws RequestTimeOutException or NotFoundException
+   */
+  public async findOneBy(operator: FindOptionsWhere<User>) {
+    let user = undefined;
+
+    try {
+      user = await this.usersRepository.findOneBy({ ...operator });
+    } catch (error) {
+      throw new RequestTimeoutException('Unable to process request', {
+        description: 'Database connection error',
+      });
+    }
+
+    if (!user) {
+      throw new NotFoundException('User does not exist');
+    }
+
+    return user;
+  }
+
+  /**
+   * The method to find a single user by googleId
+   * @param googleId
+   * @returns User
+   */
+  public async findOneByGoogleId(googleId: string) {
+    return await this.usersRepository.findOneBy({ googleId });
+  }
+
+  /**
+   * The method to create a new user using Google OAuth
+   * @param googleUser
+   * @returns User
+   * @throws ConflictException
+   */
+  public async createGoogleUser(googleUser: GoogleUser) {
+    try {
+      const user = this.usersRepository.create({
+        firstName: googleUser.firstName,
+        lastName: googleUser.lastName,
+        googleId: googleUser.googleId,
+        email: googleUser.email,
+      });
+      return await this.usersRepository.save(user);
+    } catch (error) {
+      throw new ConflictException(error, {
+        description: 'Could not create a new user',
+      });
+    }
   }
 }

@@ -14,5 +14,5 @@ export class GetUsersParamDto {
   @IsInt()
   @IsOptional()
   @Type(() => Number)
-  readonly id?: string;
+  readonly id: string;
 }

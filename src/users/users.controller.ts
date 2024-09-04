@@ -1,4 +1,5 @@
 import { Controller, Param, ParseIntPipe, Query } from '@nestjs/common';
+import { ClassSerializerInterceptor, UseInterceptors } from '@nestjs/common';
 import { Body, Delete, Get, Patch, Post } from '@nestjs/common';
 import { ApiBody, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -8,10 +9,15 @@ import { GetUsersQueryDto } from './dtos/get-users-query.dto';
 import { PatchUserDto } from './dtos/patch-user.dto';
 import { UsersService } from './providers/users.service';
 
+import { Auth } from 'src/auth/decorators/auth.decorator';
+import { AuthType } from 'src/auth/enums/auth-type.enum';
+import { createSuccessResponse } from 'src/common/response/utils/success-response.util';
+
 /**
  * Controller for users
  */
 @Controller('users')
+@UseInterceptors(ClassSerializerInterceptor)
 @ApiTags('Users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -23,6 +29,7 @@ export class UsersController {
    * @returns response
    */
   @Post()
+  @Auth(AuthType.None)
   @ApiOperation({ summary: 'Create a new user' })
   @ApiResponse({ status: 201, description: 'User created successfully' })
   @ApiBody({
@@ -31,7 +38,8 @@ export class UsersController {
     description: 'User creation details',
   })
   public async createUser(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+    const user = await this.usersService.create(createUserDto);
+    return createSuccessResponse('User created successfully', true, user);
   }
 
   /**

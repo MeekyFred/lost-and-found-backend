@@ -49,6 +49,8 @@ export class PaginationProvider {
     const previousPage = page === 1 ? page : page - 1;
 
     const response: Paginated<T> = {
+      message: 'Data fetched successfully',
+      success: true,
       data: results,
       meta: { currentPage, itemsPerPage, totalItems, totalPages },
       links: {

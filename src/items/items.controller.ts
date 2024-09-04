@@ -1,12 +1,15 @@
-import { Controller, Query } from '@nestjs/common';
+import { Controller, Param, Query } from '@nestjs/common';
 import { Body, Get, Patch, Post } from '@nestjs/common';
-import { ApiBody, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 import { CreateItemDto } from './dtos/create-item.dto';
-import { PatchItemDto } from './dtos/patch-item.dto';
 import { GetItemsQueryDto } from './dtos/get-items-query.dto';
+import { GetItemsParamDto } from './dtos/get-items-param.dto';
+import { PatchItemDto } from './dtos/patch-item.dto';
 import { ItemsService } from './providers/items.service';
+
+import { createSuccessResponse } from 'src/common/response/utils/success-response.util';
 
 /**
  * Controller for items
@@ -31,7 +34,8 @@ export class ItemsController {
     description: 'Item creation details',
   })
   public async createItem(@Body() createItemDto: CreateItemDto) {
-    return this.itemsService.create(createItemDto);
+    const item = await this.itemsService.create(createItemDto);
+    return createSuccessResponse('Item created successfully', true, item);
   }
 
   /**
@@ -50,8 +54,30 @@ export class ItemsController {
     description: 'Items Query DTO',
     example: { page: 1, limit: 10 },
   })
-  public getItems(@Query() getItemsQueryDto: GetItemsQueryDto) {
-    return this.itemsService.findAll(getItemsQueryDto);
+  public async getItems(@Query() getItemsQueryDto: GetItemsQueryDto) {
+    const items = await this.itemsService.findAll(getItemsQueryDto);
+    return createSuccessResponse('Items fetched successfully', true, items);
+  }
+
+  /**
+   * Route for handling get item request
+   * @param getItemsParamsDto A DTO used to validate incoming GET request params
+   * @example HTTP GET /items/1
+   * @returns Items
+   */
+  @Get(':id')
+  @ApiOperation({ summary: 'Get an item by id' })
+  @ApiResponse({ status: 200, description: 'Item fetched successfully' })
+  @ApiParam({
+    name: 'getItemsParamsDto',
+    required: true,
+    type: GetItemsParamDto,
+    description: 'Items Param DTO',
+    example: { id: 1 },
+  })
+  public async getItem(@Param() getItemsParamsDto: GetItemsParamDto) {
+    const item = await this.itemsService.findOneById(getItemsParamsDto.id);
+    return createSuccessResponse('Item fetched successfully', true, item);
   }
 
   /**
@@ -68,7 +94,8 @@ export class ItemsController {
     type: PatchItemDto,
     description: 'Item update details',
   })
-  public updateItem(@Body() patchItemDto: PatchItemDto) {
-    return this.itemsService.update(patchItemDto);
+  public async updateItem(@Body() patchItemDto: PatchItemDto) {
+    const item = await this.itemsService.update(patchItemDto);
+    return createSuccessResponse('Item updated successfully', true, item);
   }
 }

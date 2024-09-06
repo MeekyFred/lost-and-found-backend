@@ -9,6 +9,7 @@ const environmentSchema: Joi.ObjectSchema = Joi.object({
     .valid('development', 'production', 'test', 'staging')
     .required()
     .default('development'),
+  PORT: Joi.number().port().default(3000),
   DATABASE_PORT: Joi.number().port().default(5432),
   DATABASE_HOST: Joi.string().required(),
   DATABASE_USER: Joi.string().required(),

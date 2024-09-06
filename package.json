@@ -24,7 +24,7 @@
     "migration:prod": "./node_modules/typeorm/cli.js migration:run -d ./datasource.js",
     "migration:revert": "npm run build && npx ts-node ./node_modules/typeorm/cli.js migration:revert -d ./datasource.ts",
     "render:build": "node --max_old_space_size=4096 ./node_modules/.bin/nest build",
-    "render:start": "node dist/src/main"
+    "render:start": "node ./dist/src/main"
   },
   "dependencies": {
     "@compodoc/compodoc": "^1.1.25",

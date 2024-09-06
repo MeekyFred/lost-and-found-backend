@@ -1,7 +1,7 @@
 import { Controller, Param, ParseIntPipe, Query } from '@nestjs/common';
 import { ClassSerializerInterceptor, UseInterceptors } from '@nestjs/common';
 import { Body, Delete, Get, Patch, Post } from '@nestjs/common';
-import { ApiBody, ApiParam, ApiQuery } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { CreateUserDto } from './dtos/create-user.dto';
@@ -16,6 +16,7 @@ import { createSuccessResponse } from 'src/common/response/utils/success-respons
 /**
  * Controller for users
  */
+@ApiBearerAuth()
 @Controller('users')
 @UseInterceptors(ClassSerializerInterceptor)
 @ApiTags('Users')

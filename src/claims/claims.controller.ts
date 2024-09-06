@@ -1,6 +1,7 @@
 import { Controller, Param, Query } from '@nestjs/common';
 import { Body, Get, Post } from '@nestjs/common';
-import { ApiBody, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiParam, ApiQuery } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 import { CreateClaimDto } from './dtos/create-claim.dto';
@@ -13,6 +14,7 @@ import { createSuccessResponse } from 'src/common/response/utils/success-respons
 /**
  * Controller for Claims
  */
+@ApiBearerAuth()
 @Controller('claims')
 @ApiTags('Claims')
 export class ClaimsController {

@@ -27,7 +27,7 @@ import { MailService } from './providers/mail.service';
           from: config.get('appConfig.mailFrom'),
         },
         template: {
-          dir: join(__dirname, 'templates'),
+          dir: join(__dirname, '../../mail', 'templates'),
           adapter: new EjsAdapter({ inlineCssEnabled: true }),
           options: {
             strict: false,

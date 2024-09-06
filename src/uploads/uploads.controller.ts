@@ -1,7 +1,7 @@
 import { Controller, Post } from '@nestjs/common';
 import { UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { ApiHeaders, ApiTags } from '@nestjs/swagger';
 import { Express } from 'express';
 
@@ -10,6 +10,7 @@ import { UploadsService } from './providers/uploads.service';
 /**
  * Controller for uploads
  */
+@ApiBearerAuth()
 @Controller('uploads')
 @ApiTags('Uploads')
 export class UploadsController {

@@ -1,7 +1,7 @@
 import { Controller, Param, Query } from '@nestjs/common';
 import { Body, Get, Patch, Post } from '@nestjs/common';
 import { ApiBody, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 import { CreateItemDto } from './dtos/create-item.dto';
 import { GetItemsQueryDto } from './dtos/get-items-query.dto';
@@ -14,6 +14,7 @@ import { createSuccessResponse } from 'src/common/response/utils/success-respons
 /**
  * Controller for items
  */
+@ApiBearerAuth()
 @Controller('items')
 @ApiTags('Items')
 export class ItemsController {

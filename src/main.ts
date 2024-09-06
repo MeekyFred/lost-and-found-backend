@@ -44,7 +44,7 @@ async function bootstrap() {
 
   app.enableCors(); // Enable CORS
 
-  await app.listen(3000); // Start the application
+  await app.listen(configService.get('appConfig.port')); // Start the application
 }
 
 bootstrap(); // Bootstrap the application

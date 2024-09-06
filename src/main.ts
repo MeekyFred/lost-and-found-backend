@@ -44,6 +44,15 @@ async function bootstrap() {
 
   app.enableCors(); // Enable CORS
 
+  app.enableCors({
+    origin: [
+      'http://ec2-54-247-235-250.eu-west-1.compute.amazonaws.com',
+      'https://lost-and-found-backend-0sdp.onrender.com',
+    ],
+    methods: 'GET,POST,PUT,DELETE,OPTIONS',
+    allowedHeaders: 'Content-Type, Authorization',
+  });
+
   await app.listen(configService.get('appConfig.port')); // Start the application
 }
 

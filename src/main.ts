@@ -25,7 +25,6 @@ async function bootstrap() {
     .setTitle('Lost and Found API')
     .setDescription('The API for Lost and Found application')
     .setVersion('1.0')
-    .addServer('http://localhost:3000')
     .build(); // Swagger configuration
 
   const document = SwaggerModule.createDocument(app, options); // Create Swagger document

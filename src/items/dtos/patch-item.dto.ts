@@ -1,5 +1,5 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 import { CreateItemDto } from './create-item.dto';
 
@@ -12,14 +12,14 @@ export class PatchItemDto extends PartialType(CreateItemDto) {
    * @example 1
    */
   @ApiProperty({
-    type: 'number',
+    type: 'string',
     required: true,
     readOnly: true,
-    format: 'number',
+    format: 'string',
     description: 'The ID of the item',
-    example: 1,
+    example: 'id',
   })
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
-  readonly id: number;
+  readonly id: string;
 }

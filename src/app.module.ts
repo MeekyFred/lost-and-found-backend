@@ -18,6 +18,7 @@ import { AuthenticationGuard } from './auth/guards/authentication/authentication
 import { DataResponseInterceptor } from './common/interceptors/data-response/data-response.interceptor';
 import { UploadsModule } from './uploads/uploads.module';
 import { MailModule } from './mail/mail.module';
+import { AdminModule } from './admin/admin.module';
 import appConfig from './config/app.config';
 import databaseConfig from './config/database.config';
 import environmentSchema from './config/environment.validation';
@@ -59,6 +60,7 @@ const ENV = process.env.NODE_ENV; // Get the current environment
     PaginationModule,
     UploadsModule,
     MailModule,
+    AdminModule,
   ],
   controllers: [AppController],
   providers: [

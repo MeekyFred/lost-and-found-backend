@@ -46,6 +46,7 @@ async function bootstrap() {
 
   app.enableCors({
     origin: [
+      'http://localhost:3030',
       'http://ec2-54-247-235-250.eu-west-1.compute.amazonaws.com',
       'https://lost-and-found-backend-0sdp.onrender.com',
     ],

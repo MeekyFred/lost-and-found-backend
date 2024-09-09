@@ -5,10 +5,10 @@ import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Auth } from './decorators/auth.decorator';
 import { AuthType } from './enums/auth-type.enum';
 import { LoginDto } from './dtos/login.dto';
-import { RegisterDto } from './dtos/register.dto';
 import { AuthService } from './providers/auth.service';
 
 import { createSuccessResponse } from 'src/common/response/utils/success-response.util';
+import { CreateUserDto } from 'src/users/dtos/create-user.dto';
 
 /**
  * Controller for authentication
@@ -24,11 +24,12 @@ export class AuthController {
   @ApiResponse({ status: 201, description: 'User registered successfully' })
   @ApiBody({
     required: true,
-    type: RegisterDto,
+    type: CreateUserDto,
     description: 'User registration details',
   })
-  public async registerUser(@Body() registerDto: RegisterDto) {
-    return this.authService.register(registerDto);
+  public async registerUser(@Body() createUserDto: CreateUserDto) {
+    const user = await this.authService.register(createUserDto);
+    return createSuccessResponse('User created successfully', true, user);
   }
 
   @Post('login')

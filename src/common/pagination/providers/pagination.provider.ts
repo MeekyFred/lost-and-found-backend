@@ -1,4 +1,4 @@
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import { ConflictException, Inject, Injectable } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
 import { Request } from 'express';
 import { FindOptionsWhere, ObjectLiteral, Repository } from 'typeorm';
@@ -16,7 +16,6 @@ export class PaginationProvider {
     queryConditions?: FindOptionsWhere<T>,
   ): Promise<Paginated<T>> {
     const { limit, page } = paginationQuery;
-
     let results: T[] = [];
 
     try {
@@ -26,13 +25,12 @@ export class PaginationProvider {
         take: limit,
       });
 
-      results = found;
-    } catch (error) {}
-
-    if (!results) {
-      throw new BadRequestException('Adjust page and limit query', {
-        description: 'Posts not found',
-      });
+      if (found) {
+        console.log('found: ', found); // TODO: Remove this line
+        results = found;
+      }
+    } catch (error) {
+      throw new ConflictException(error);
     }
 
     const protocol = this.request.protocol;

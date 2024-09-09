@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, PrimaryGeneratedColumn } from 'typeorm';
 import { CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { ManyToOne, OneToOne } from 'typeorm';
 
@@ -13,8 +13,8 @@ import { User } from 'src/users/user.entity';
  */
 @Entity()
 export class Claim {
-  @PrimaryGeneratedColumn()
-  readonly id: number;
+  @PrimaryGeneratedColumn('uuid')
+  readonly id: string;
 
   @Column({
     type: 'enum',
@@ -27,7 +27,6 @@ export class Claim {
   @Column({
     type: 'date',
     nullable: false,
-    default: new Date(),
   })
   dateLost: Date;
 
@@ -37,8 +36,12 @@ export class Claim {
   @UpdateDateColumn()
   updatedAt: Date;
 
+  @Column({ type: 'uuid', nullable: false })
+  readonly authorId: string;
+
   @ManyToOne(() => User, (user) => user.claims, { eager: true })
-  readonly author: User;
+  @JoinColumn({ name: 'authorId', referencedColumnName: 'id' })
+  author: User;
 
   @OneToOne(() => Item, (item) => item.claim)
   readonly item: Item;

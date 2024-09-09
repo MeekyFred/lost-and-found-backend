@@ -1,17 +1,3 @@
-### Register User Endpoint ###
-
-POST /auth/register HTTP/1.1
-Host: localhost:3000
-Content-Type: application/json
-
-{
-    "name": "John Doe",
-    "email": "johndoe@example.com",
-    "phoneNumber": "08012345678",
-    "password": "Password123@",
-    "confirmPassword": "Password123@"
-}
-
 ### Login User Endpoint ###
 
 POST /auth/login HTTP/1.1
@@ -19,8 +5,8 @@ Host: localhost:3000
 Content-Type: application/json
 
 {
-    "email": "johndoe@example.com",
-    "password": "Password123@"
+    "email": "jessejuwe@gmail.com",
+    "password": "$@Admin7@$"
 }
 
 ### Logout User Endpoint ###

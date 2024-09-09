@@ -1,14 +1,11 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { RequestTimeoutException, UnauthorizedException } from '@nestjs/common';
-import { ConfigType } from '@nestjs/config';
-import { JwtService, JwtSignOptions } from '@nestjs/jwt';
 
+import { GenerateTokensProvider } from './generate-tokens.provider';
 import { HashingProvider } from './hashing.provider';
-import jwtConfig from '../config/jwt.config';
 import { LoginDto } from '../dtos/login.dto';
 
 import { UsersService } from 'src/users/providers/users.service';
-import { IActiveUser } from '../interfaces/active-user.interface';
 
 /**
  * Login provider
@@ -16,12 +13,10 @@ import { IActiveUser } from '../interfaces/active-user.interface';
 @Injectable()
 export class LoginProvider {
   constructor(
+    private readonly generateTokensProvider: GenerateTokensProvider,
     private readonly hashingProvider: HashingProvider,
-    private readonly jwtService: JwtService,
     @Inject(forwardRef(() => UsersService))
     private readonly usersService: UsersService,
-    @Inject(jwtConfig.KEY)
-    private readonly jwtConfiguration: ConfigType<typeof jwtConfig>,
   ) {}
 
   /**
@@ -50,17 +45,9 @@ export class LoginProvider {
       throw new UnauthorizedException('Incorect password');
     }
 
-    const payload: IActiveUser = { sub: user.id, email: user.email };
+    // Generate access token and refresh token
+    const tokens = await this.generateTokensProvider.generateTokens(user);
 
-    const options: JwtSignOptions = {
-      audience: this.jwtConfiguration.audience,
-      issuer: this.jwtConfiguration.issuer,
-      secret: this.jwtConfiguration.secret,
-      expiresIn: this.jwtConfiguration.accessTokenTTL,
-    };
-
-    const accessToken = this.jwtService.signAsync(payload, options);
-
-    return accessToken;
+    return tokens;
   }
 }

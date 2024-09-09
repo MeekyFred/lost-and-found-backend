@@ -10,6 +10,13 @@ import { PaginationQueryDto } from 'src/common/pagination/dtos/pagination-query.
  */
 class GetItemsBaseDto {
   /**
+   * The search query
+   */
+  @IsString()
+  @IsOptional()
+  search?: string;
+
+  /**
    * The status query
    */
   @IsEnum(ItemStatus)

@@ -1,5 +1,5 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsBoolean, IsEnum, IsISO8601, IsString, IsUrl } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsEnum, IsISO8601, IsString, IsUrl } from 'class-validator';
 import { IsNotEmpty, IsOptional } from 'class-validator';
 import { MaxLength, MinLength } from 'class-validator';
 import { ItemStatus } from '../enums/itemStatus.enum';
@@ -120,15 +120,4 @@ export class CreateItemDto {
   @IsISO8601()
   @IsNotEmpty()
   readonly dateFound: Date;
-
-  @ApiPropertyOptional({
-    type: 'boolean',
-    required: true,
-    format: 'boolean',
-    description: 'Determines if the item has been archived',
-    example: false,
-  })
-  @IsBoolean()
-  @IsOptional()
-  isArchived?: boolean;
 }

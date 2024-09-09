@@ -1,4 +1,7 @@
 export interface IActiveUser {
-  sub: number; // User id
+  id: string; // User id
+  firstName: string;
+  lastName: string;
   email: string;
+  phoneNumber: string;
 }

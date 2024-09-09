@@ -20,15 +20,15 @@ export class MailService {
       await this.mailerService.sendMail({
         to: user.email,
         // override default from
-        from: '"Onbaording Team" <support@nestjs-blog.com>',
-        subject: 'Welcome to NestJs Blog',
+        from: '"Onbaording Team" <support@lostandfound.com>',
+        subject: 'Welcome to Lost and Found!',
         // `.ejs` extension is appended automatically to template
         template: './welcome',
         // Context is available in email template
         context: {
           name: user.firstName,
           email: user.email,
-          loginUrl: 'http://localhost:3000',
+          loginUrl: 'http://localhost:3030',
         },
       });
     } catch (error) {

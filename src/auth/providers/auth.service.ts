@@ -1,9 +1,11 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 
+import { HashingProvider } from './hashing.provider';
 import { LoginProvider } from './login.provider';
 import { LoginDto } from '../dtos/login.dto';
-import { RegisterDto } from '../dtos/register.dto';
 
+import { User } from 'src/users/user.entity';
+import { CreateUserDto } from 'src/users/dtos/create-user.dto';
 import { UsersService } from 'src/users/providers/users.service';
 
 /**
@@ -16,6 +18,7 @@ export class AuthService {
    * @description Injects LoginProvider
    */
   constructor(
+    private readonly hashingProvider: HashingProvider,
     private readonly loginProvider: LoginProvider,
     @Inject(forwardRef(() => UsersService))
     private readonly usersService: UsersService,
@@ -23,11 +26,12 @@ export class AuthService {
 
   /**
    * The method to register a new user
-   * @param registerDto The user registration details
+   * @param createUserDto The user registration details
    * @returns The registered user
    */
-  public async register(registerDto: RegisterDto) {
-    return registerDto;
+  public async register(createUserDto: CreateUserDto) {
+    const user = await this.usersService.create(createUserDto);
+    return user;
   }
 
   /**
@@ -37,6 +41,24 @@ export class AuthService {
    */
   public async login(loginDto: LoginDto) {
     return await this.loginProvider.login(loginDto);
+  }
+
+  /**
+   * The method to validate a user
+   * @param loginDto The username of the user
+   * @returns The user if found, otherwise null
+   */
+  public async validateUser(loginDto: LoginDto): Promise<User | null> {
+    const user = await this.usersService.findOneByEmail(loginDto.email);
+
+    // prettier-ignore
+    const isMatch = await this.hashingProvider.comparePassword(loginDto.password, user.password);
+
+    if (user && isMatch) {
+      return user;
+    }
+
+    return null;
   }
 
   /**

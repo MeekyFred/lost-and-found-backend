@@ -1,4 +1,4 @@
-import { Controller, Param, ParseIntPipe, Query } from '@nestjs/common';
+import { Controller, Param, Query } from '@nestjs/common';
 import { ClassSerializerInterceptor, UseInterceptors } from '@nestjs/common';
 import { Body, Delete, Get, Patch, Post } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiParam, ApiQuery } from '@nestjs/swagger';
@@ -83,8 +83,8 @@ export class UsersController {
 
   /**
    * Route for handling delete user request
-   * @param id number describing the ID of user
-   * @example HTTP DELETE /user/1
+   * @param id string describing the ID of user
+   * @example HTTP DELETE /user/7654f3-3fj3-3fj3-3fj3
    * @returns response
    */
   @Delete(':id')
@@ -93,11 +93,11 @@ export class UsersController {
   @ApiParam({
     name: 'id',
     required: true,
-    type: Number,
+    type: String,
     description: 'User ID',
-    example: 1,
+    example: '7654f3-3fj3-3fj3-3fj3',
   })
-  public deleteUser(@Param('id', ParseIntPipe) id: number) {
+  public deleteUser(@Param('id') id: string) {
     return id;
   }
 }

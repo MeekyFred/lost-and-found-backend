@@ -1,6 +1,5 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
-import { IsInt, IsOptional } from 'class-validator';
+import { IsString, IsOptional } from 'class-validator';
 
 /**
  * Items param DTO
@@ -8,11 +7,10 @@ import { IsInt, IsOptional } from 'class-validator';
 export class GetItemsParamDto {
   /**
    * Claim ID
-   * @example 1
+   * @example "id"
    */
-  @ApiPropertyOptional({ description: 'Item id', example: 1 })
-  @IsInt()
+  @ApiPropertyOptional({ description: 'Item id', example: 'id' })
+  @IsString()
   @IsOptional()
-  @Type(() => Number)
-  readonly id: number;
+  readonly id?: string;
 }

@@ -1,5 +1,5 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 import { CreateUserDto } from './create-user.dto';
 
@@ -9,17 +9,17 @@ import { CreateUserDto } from './create-user.dto';
 export class PatchUserDto extends PartialType(CreateUserDto) {
   /**
    * The ID of the user.
-   * @example 1
+   * @example dfej45-3fj3-3fj3-3fj3
    */
   @ApiProperty({
-    type: 'number',
+    type: 'string',
     required: true,
     readOnly: true,
-    format: 'number',
+    format: 'string',
     description: 'The ID of the user',
     example: 1,
   })
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
-  readonly id: number;
+  readonly id: string;
 }

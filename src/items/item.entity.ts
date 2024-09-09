@@ -11,8 +11,8 @@ import { Claim } from 'src/claims/claim.entity';
  */
 @Entity()
 export class Item {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column({ type: 'varchar', length: 96, nullable: false })
   name: string;
@@ -39,9 +39,6 @@ export class Item {
 
   @Column({ type: 'date', nullable: false })
   dateFound: Date;
-
-  @Column({ type: 'boolean', nullable: false, default: false })
-  isArchived: boolean;
 
   @CreateDateColumn()
   createdAt: Date;

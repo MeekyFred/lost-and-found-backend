@@ -11,17 +11,20 @@ import { Claim } from 'src/claims/claim.entity';
  */
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn()
-  readonly id: number;
+  @PrimaryGeneratedColumn('uuid')
+  readonly id: string;
 
   @Column({ type: 'varchar', length: 96, nullable: false })
   readonly firstName: string;
 
-  @Column({ type: 'varchar', length: 96, nullable: true, default: null })
-  lastName?: string;
+  @Column({ type: 'varchar', length: 96, nullable: false })
+  lastName: string;
 
   @Column({ type: 'varchar', length: 96, nullable: false, unique: true })
   readonly email: string;
+
+  @Column({ type: 'varchar', length: 96, nullable: false })
+  readonly phoneNumber: string;
 
   @Column({ type: 'varchar', length: 96, nullable: true, default: null })
   @Exclude()
@@ -39,5 +42,5 @@ export class User {
 
   @OneToMany(() => Claim, (claims) => claims.author)
   @JoinColumn()
-  readonly claims: Claim[];
+  claims: Claim[];
 }

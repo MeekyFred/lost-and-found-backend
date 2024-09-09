@@ -1,6 +1,5 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
-import { IsInt, IsOptional } from 'class-validator';
+import { IsString, IsOptional } from 'class-validator';
 
 /**
  * Claims param DTO
@@ -11,8 +10,7 @@ export class GetClaimsParamDto {
    * @example 1
    */
   @ApiPropertyOptional({ description: 'Claim id', example: 1 })
-  @IsInt()
+  @IsString()
   @IsOptional()
-  @Type(() => Number)
-  readonly id: number;
+  readonly id: string;
 }

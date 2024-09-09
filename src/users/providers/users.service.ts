@@ -61,7 +61,7 @@ export class UsersService {
    * @returns User
    * @throws RequestTimeOutException or NotFoundException
    */
-  public async findOneById(id: number) {
+  public async findOneById(id: string): Promise<User> {
     let user = undefined;
 
     try {

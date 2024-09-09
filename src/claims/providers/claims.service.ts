@@ -72,7 +72,7 @@ export class ClaimsService {
    * @returns Claim
    * @throws NotFoundException or RequestTimeoutException
    */
-  public async findOneById(id: number): Promise<Claim> {
+  public async findOneById(id: string): Promise<Claim> {
     let claim = undefined;
 
     try {

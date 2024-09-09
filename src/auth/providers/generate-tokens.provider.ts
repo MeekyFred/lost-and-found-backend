@@ -25,8 +25,8 @@ export class GenerateTokensProvider {
    * @param payload
    * @returns token
    */
-  public async signToken<T>(userId: number, expiresIn: number, payload?: T) {
-    const payloadData = { sub: userId, ...payload };
+  public async signToken<T>(userId: string, expiresIn: number, payload?: T) {
+    const payloadData = { id: userId, ...payload };
 
     const options: JwtSignOptions = {
       audience: this.jwtConfiguration.audience,
@@ -46,12 +46,15 @@ export class GenerateTokensProvider {
    * @returns tokens
    */
   public async generateTokens(user: User) {
+    const payload: Partial<IActiveUser> = {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      phoneNumber: user.phoneNumber,
+    };
+
     const [accessToken, refreshToken] = await Promise.all([
-      this.signToken<Partial<IActiveUser>>(
-        user.id,
-        this.jwtConfiguration.accessTokenTTL,
-        { email: user.email },
-      ),
+      this.signToken(user.id, this.jwtConfiguration.accessTokenTTL, payload),
       this.signToken(user.id, this.jwtConfiguration.refreshTokenTTL),
     ]);
     return { accessToken, refreshToken };

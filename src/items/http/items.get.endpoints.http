@@ -2,6 +2,7 @@
     const date = new Date();
     exports.from = date.toString();
     exports.to = date.toString();
+    exports.token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhhZjE2YTZmLTcxODEtNGRiMi05M2M0LWM5Y2E5Y2JjOTU2ZCIsImZpcnN0TmFtZSI6Ikplc3NlIiwibGFzdE5hbWUiOiJKdXdlIiwiZW1haWwiOiJqZXNzZWp1d2VAZ21haWwuY29tIiwicGhvbmVOdW1iZXIiOiIwOTAyNjE4NjkzNSIsImlhdCI6MTcyNTg4MDY3MywiZXhwIjoxNzI1ODg0MjczLCJhdWQiOiJsb2NhbGhvc3Q6MzAwMCIsImlzcyI6ImxvY2FsaG9zdDozMDAwIn0.Byfgto_sRaQuFPWov4K5-7IExfjRLwvnNzZFFzKV-3k';
 }}
 
 GET /items 
@@ -11,8 +12,13 @@ Host: localhost:3000
 
 GET /items
 Host: localhost:3000
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhhZjE2YTZmLTcxODEtNGRiMi05M2M0LWM5Y2E5Y2JjOTU2ZCIsImZpcnN0TmFtZSI6Ikplc3NlIiwibGFzdE5hbWUiOiJKdXdlIiwiZW1haWwiOiJqZXNzZWp1d2VAZ21haWwuY29tIiwicGhvbmVOdW1iZXIiOiIwOTAyNjE4NjkzNSIsImlhdCI6MTcyNTg4MTE1OCwiZXhwIjoxNzI1ODg0NzU4LCJhdWQiOiJsb2NhbGhvc3Q6MzAwMCIsImlzcyI6ImxvY2FsaG9zdDozMDAwIn0.-OHID0EI5bAn5z6ZfLJhdYZJHp_I3Pb-dBKFNYMR22Q
 ?limit=3
 &page=1
 
 GET /items/7
+Host: localhost:3000
+
+GET /items/analytics/8af16a6f-7181-4db2-93c4-c9ca9cbc956d
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhhZjE2YTZmLTcxODEtNGRiMi05M2M0LWM5Y2E5Y2JjOTU2ZCIsImZpcnN0TmFtZSI6Ikplc3NlIiwibGFzdE5hbWUiOiJKdXdlIiwiZW1haWwiOiJqZXNzZWp1d2VAZ21haWwuY29tIiwicGhvbmVOdW1iZXIiOiIwOTAyNjE4NjkzNSIsImlhdCI6MTcyNTg4MTE1OCwiZXhwIjoxNzI1ODg0NzU4LCJhdWQiOiJsb2NhbGhvc3Q6MzAwMCIsImlzcyI6ImxvY2FsaG9zdDozMDAwIn0.-OHID0EI5bAn5z6ZfLJhdYZJHp_I3Pb-dBKFNYMR22Q
 Host: localhost:3000

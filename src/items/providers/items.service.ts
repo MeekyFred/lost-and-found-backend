@@ -4,10 +4,12 @@ import { RequestTimeoutException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
+import { ItemsAnalyticsProvider } from './items-analytics.provider';
 import { Item } from '../item.entity';
 import { CreateItemDto } from '../dtos/create-item.dto';
 import { PatchItemDto } from '../dtos/patch-item.dto';
 import { GetItemsQueryDto } from '../dtos/get-items-query.dto';
+
 import { Paginated } from 'src/common/pagination/interfaces/paginated.interface';
 import { PaginationProvider } from 'src/common/pagination/providers/pagination.provider';
 
@@ -17,8 +19,9 @@ import { PaginationProvider } from 'src/common/pagination/providers/pagination.p
 @Injectable()
 export class ItemsService {
   constructor(
+    private readonly itemsAnalyticsProvider: ItemsAnalyticsProvider,
     private readonly paginationProvider: PaginationProvider,
-    @InjectRepository(Item) private readonly itemRepository: Repository<Item>,
+    @InjectRepository(Item) private readonly itemsRepository: Repository<Item>,
   ) {}
 
   /**
@@ -29,11 +32,11 @@ export class ItemsService {
    */
   public async create(createItemDto: CreateItemDto): Promise<Item> {
     // Create Item
-    let newItem = this.itemRepository.create(createItemDto);
+    let newItem = this.itemsRepository.create(createItemDto);
 
     try {
       // Connect to db to save new item
-      newItem = await this.itemRepository.save(newItem);
+      newItem = await this.itemsRepository.save(newItem);
     } catch (error) {
       throw new RequestTimeoutException('Unable to save item', {
         description: 'Database connection error',
@@ -56,8 +59,7 @@ export class ItemsService {
 
     try {
       // prettier-ignore
-      const items = await this.paginationProvider.paginateQuery({ limit, page }, this.itemRepository, filters);
-
+      const items = await this.paginationProvider.paginateQuery({ limit, page }, this.itemsRepository, filters);
       return items;
     } catch (error) {
       throw new RequestTimeoutException('Unable to process request', {
@@ -72,11 +74,11 @@ export class ItemsService {
    * @returns Item
    * @throws NotFoundException or RequestTimeoutException
    */
-  public async findOneById(id: number): Promise<Item> {
+  public async findOneById(id: string): Promise<Item> {
     let item = undefined;
 
     try {
-      item = await this.itemRepository.findOneBy({ id });
+      item = await this.itemsRepository.findOneBy({ id });
     } catch (error) {
       throw new RequestTimeoutException('Unable to process request', {
         description: 'Database connection error',
@@ -108,11 +110,20 @@ export class ItemsService {
     item.dateFound = patchItemDto.dateFound ?? item.dateFound;
 
     try {
-      await this.itemRepository.save(item);
+      await this.itemsRepository.save(item);
     } catch (error) {
       throw new RequestTimeoutException('Unable to save item', {
         description: 'Database connection error',
       });
     }
+  }
+
+  /**
+   * The method to get items analytics
+   * @returns object
+   * @throws NotFoundException or RequestTimeoutException
+   */
+  public async analytics(tokenId: string, id: string): Promise<any> {
+    return await this.itemsAnalyticsProvider.analytics(tokenId, id);
   }
 }

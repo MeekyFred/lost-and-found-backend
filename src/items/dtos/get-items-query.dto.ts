@@ -1,4 +1,4 @@
-import { IsBoolean, IsEnum, IsISO8601, IsString } from 'class-validator';
+import { IsDate, IsEnum, IsString } from 'class-validator';
 import { IsOptional } from 'class-validator';
 import { IntersectionType } from '@nestjs/swagger';
 
@@ -31,25 +31,12 @@ class GetItemsBaseDto {
   category?: string;
 
   /**
-   * The archived query
-   */
-  @IsBoolean()
-  @IsOptional()
-  isArchived?: boolean;
-
-  /**
    * The from date range query
    */
-  @IsISO8601()
+  @IsDate()
+  // @IsISO8601()
   @IsOptional()
-  from?: Date;
-
-  /**
-   * The to date range query
-   */
-  @IsISO8601()
-  @IsOptional()
-  to?: Date;
+  dateFound?: Date;
 }
 
 /**

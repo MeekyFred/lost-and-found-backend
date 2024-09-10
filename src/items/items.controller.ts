@@ -60,7 +60,7 @@ export class ItemsController {
   })
   public async getItems(@Query() getItemsQueryDto: GetItemsQueryDto) {
     const items = await this.itemsService.findAll(getItemsQueryDto);
-    return createSuccessResponse('Items fetched successfully', true, items);
+    return items;
   }
 
   /**

@@ -1,14 +1,17 @@
 {{
     const date = new Date();
-    exports.from = date.toString();
-    exports.to = date.toString();
+    exports.dateFound = date.toISOString();
     exports.token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhhZjE2YTZmLTcxODEtNGRiMi05M2M0LWM5Y2E5Y2JjOTU2ZCIsImZpcnN0TmFtZSI6Ikplc3NlIiwibGFzdE5hbWUiOiJKdXdlIiwiZW1haWwiOiJqZXNzZWp1d2VAZ21haWwuY29tIiwicGhvbmVOdW1iZXIiOiIwOTAyNjE4NjkzNSIsImlhdCI6MTcyNTg4MDY3MywiZXhwIjoxNzI1ODg0MjczLCJhdWQiOiJsb2NhbGhvc3Q6MzAwMCIsImlzcyI6ImxvY2FsaG9zdDozMDAwIn0.Byfgto_sRaQuFPWov4K5-7IExfjRLwvnNzZFFzKV-3k';
 }}
 
-GET /items 
+GET /items
 Host: localhost:3000
-?from={{from}}
-&to={{to}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhhZjE2YTZmLTcxODEtNGRiMi05M2M0LWM5Y2E5Y2JjOTU2ZCIsImZpcnN0TmFtZSI6Ikplc3NlIiwibGFzdE5hbWUiOiJKdXdlIiwiZW1haWwiOiJqZXNzZWp1d2VAZ21haWwuY29tIiwicGhvbmVOdW1iZXIiOiIwOTAyNjE4NjkzNSIsImlhdCI6MTcyNTk0NTE1NiwiZXhwIjoxNzI1OTQ4NzU2LCJhdWQiOiJsb2NhbGhvc3Q6MzAwMCIsImlzcyI6ImxvY2FsaG9zdDozMDAwIn0.GgHqxfSYuE-XhngbOGFPK0ecSH27GrmQuku6UvLaccs
+?limit=10
+&page=1
+&status=ALL
+&search=
+&dateFound={{dateFound}}
 
 GET /items
 Host: localhost:3000

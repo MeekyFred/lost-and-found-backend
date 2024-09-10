@@ -1,4 +1,5 @@
 import { ConflictException, Inject, Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { REQUEST } from '@nestjs/core';
 import { Request } from 'express';
 import { FindOptionsWhere, ObjectLiteral, Repository } from 'typeorm';
@@ -8,7 +9,10 @@ import { Paginated } from '../interfaces/paginated.interface';
 
 @Injectable()
 export class PaginationProvider {
-  constructor(@Inject(REQUEST) private readonly request: Request) {}
+  constructor(
+    private readonly configService: ConfigService,
+    @Inject(REQUEST) private readonly request: Request,
+  ) {}
 
   public async paginateQuery<T extends ObjectLiteral>(
     paginationQuery: PaginationQueryDto,
@@ -26,7 +30,6 @@ export class PaginationProvider {
       });
 
       if (found) {
-        console.log('found: ', found); // TODO: Remove this line
         results = found;
       }
     } catch (error) {
@@ -47,7 +50,8 @@ export class PaginationProvider {
     const previousPage = page === 1 ? page : page - 1;
 
     const response: Paginated<T> = {
-      message: 'Data fetched successfully',
+      apiVersion: this.configService.get('appConfig.apiVersion'),
+      message: `Data fetched successfully`,
       success: true,
       data: results,
       meta: { currentPage, itemsPerPage, totalItems, totalPages },

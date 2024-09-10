@@ -1,4 +1,5 @@
 export interface Paginated<T> {
+  apiVersion?: string;
   message: string;
   success: boolean;
   data: T[];

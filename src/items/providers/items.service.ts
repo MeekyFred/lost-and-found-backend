@@ -53,9 +53,14 @@ export class ItemsService {
    * @throws BadRequestException or RequestTimeoutException
    */
   public async findAll(query: GetItemsQueryDto): Promise<Paginated<Item>> {
-    const { page, limit, ...queries } = query;
+    const { page, limit, search, ...queries } = query;
 
-    const filters = Object.keys(queries).length ? queries : undefined;
+    const category = search;
+    const name = search;
+
+    const newQueries = search ? { ...queries, name, category } : queries;
+
+    const filters = Object.keys(newQueries).length ? newQueries : undefined;
 
     try {
       // prettier-ignore

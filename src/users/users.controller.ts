@@ -77,8 +77,9 @@ export class UsersController {
     type: PatchUserDto,
     description: 'User update details',
   })
-  public updateUser(@Body() patchUserDto: PatchUserDto) {
-    return patchUserDto;
+  public async patchUser(@Body() patchUserDto: PatchUserDto) {
+    const user = await this.usersService.updateUser(patchUserDto);
+    return createSuccessResponse('User updated successfully', true, user);
   }
 
   /**

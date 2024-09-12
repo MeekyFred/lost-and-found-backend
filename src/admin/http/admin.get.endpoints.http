@@ -21,7 +21,16 @@
     exports.queryString = params.toString();
 }}
 
+### Get analytics
+GET /admin/analytics
+Host: http://localhost:3000
+Authorization: Bearer {{ token }}
+
 ### Get All Claims
-GET /claims?{{queryString}}
+GET /admin/claims?{{queryString}}
+Host: localhost:3000
+Authorization: Bearer {{ token }}
+
+GET /admin/users?{{queryString}}
 Host: localhost:3000
 Authorization: Bearer {{ token }}

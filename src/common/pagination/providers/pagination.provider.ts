@@ -18,6 +18,7 @@ export class PaginationProvider {
     paginationQuery: PaginationQueryDto,
     repository: Repository<T>,
     queryConditions?: FindOptionsWhere<T>,
+    relations?: string[],
   ): Promise<Paginated<T>> {
     const { limit, page } = paginationQuery;
     let results: T[] = [];
@@ -25,6 +26,7 @@ export class PaginationProvider {
     try {
       const found = await repository.find({
         where: queryConditions,
+        relations: relations || [],
         skip: (page - 1) * limit,
         take: limit,
       });
@@ -42,11 +44,9 @@ export class PaginationProvider {
     const newUrl = new URL(this.request.url, baseURL);
     const { origin, pathname } = newUrl;
 
-    const currentPage = page;
-    const itemsPerPage = limit;
-    const totalItems = await repository.count({ where: queryConditions });
-    const totalPages = Math.ceil(totalItems / limit);
-    const nextPage = page === totalPages ? page : page + 1;
+    const total = await repository.count({ where: queryConditions });
+    const pages = Math.ceil(total / limit);
+    const nextPage = page === pages ? page : page + 1;
     const previousPage = page === 1 ? page : page - 1;
 
     const response: Paginated<T> = {
@@ -54,10 +54,10 @@ export class PaginationProvider {
       message: `Data fetched successfully`,
       success: true,
       data: results,
-      meta: { currentPage, itemsPerPage, totalItems, totalPages },
+      meta: { page, limit, total, pages },
       links: {
         first: `${origin}${pathname}?limit=${limit}&page=1`,
-        last: `${origin}${pathname}?limit=${limit}&page=${totalPages}`,
+        last: `${origin}${pathname}?limit=${limit}&page=${pages}`,
         current: `${origin}${pathname}?limit=${limit}&page=${page}`,
         next: `${origin}${pathname}?limit=${limit}&page=${nextPage}`,
         previous: `${origin}${pathname}?limit=${limit}&page=${previousPage}`,

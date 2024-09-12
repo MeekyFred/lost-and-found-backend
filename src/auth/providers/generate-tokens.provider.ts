@@ -51,6 +51,7 @@ export class GenerateTokensProvider {
       lastName: user.lastName,
       email: user.email,
       phoneNumber: user.phoneNumber,
+      role: user.role,
     };
 
     const [accessToken, refreshToken] = await Promise.all([

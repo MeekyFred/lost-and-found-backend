@@ -7,6 +7,8 @@ import { Express } from 'express';
 
 import { UploadsService } from './providers/uploads.service';
 
+import { createSuccessResponse } from 'src/common/response/utils/success-response.util';
+
 /**
  * Controller for uploads
  */
@@ -26,9 +28,10 @@ export class UploadsController {
     { name: 'Content-Type', description: 'multipart/form-data' },
     { name: 'Authorization', description: 'Bearer Token' },
   ])
-  @ApiOperation({ summary: `Upload a new image to the server` })
+  @ApiOperation({ summary: `Upload a new image` })
   @ApiResponse({ status: 201, description: 'File uploaded successfully' })
-  public uploadFile(@UploadedFile() file: Express.Multer.File) {
-    return this.uploadsService.uploadFile(file);
+  public async uploadFile(@UploadedFile() file: Express.Multer.File) {
+    const data = await this.uploadsService.uploadFile(file);
+    return createSuccessResponse('File uploaded successfully', true, data);
   }
 }

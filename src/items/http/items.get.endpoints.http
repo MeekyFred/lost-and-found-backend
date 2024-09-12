@@ -1,27 +1,37 @@
+# Define environment variables
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhhZjE2YTZmLTcxODEtNGRiMi05M2M0LWM5Y2E5Y2JjOTU2ZCIsImZpcnN0TmFtZSI6Ikplc3NlIiwibGFzdE5hbWUiOiJKdXdlIiwiZW1haWwiOiJqZXNzZWp1d2VAZ21haWwuY29tIiwicGhvbmVOdW1iZXIiOiIwOTAyNjE4NjkzNSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTcyNjEyMDI2NCwiZXhwIjoxNzI2MTIzODY0LCJhdWQiOiJsb2NhbGhvc3Q6MzAwMCIsImlzcyI6ImxvY2FsaG9zdDozMDAwIn0.yHhkYyLL2vH2D6uFbMw7PbBx5DZ8cIK3CdkMEJ8f7zc
+
+# Define request variables
+@from = {{ new Date('2024-09-01').toISOString() }}
+@to = {{ new Date().toISOString() }}
+
 {{
-    const date = new Date();
-    exports.dateFound = date.toISOString();
-    exports.token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhhZjE2YTZmLTcxODEtNGRiMi05M2M0LWM5Y2E5Y2JjOTU2ZCIsImZpcnN0TmFtZSI6Ikplc3NlIiwibGFzdE5hbWUiOiJKdXdlIiwiZW1haWwiOiJqZXNzZWp1d2VAZ21haWwuY29tIiwicGhvbmVOdW1iZXIiOiIwOTAyNjE4NjkzNSIsImlhdCI6MTcyNTg4MDY3MywiZXhwIjoxNzI1ODg0MjczLCJhdWQiOiJsb2NhbGhvc3Q6MzAwMCIsImlzcyI6ImxvY2FsaG9zdDozMDAwIn0.Byfgto_sRaQuFPWov4K5-7IExfjRLwvnNzZFFzKV-3k';
+    const params = new URLSearchParams({
+        limit: '10',
+        page: '1',
+        category: 'CLOTHING',
+        status: '',
+        search: '',
+        from: `${from}`,
+        to: `${to}`,
+    });
+
+    // Remove empty parameters
+    [...params.keys()].forEach(key => {
+        if (!params.get(key)) {
+            params.delete(key);
+        }
+    });
+
+    exports.queryString = params.toString();
 }}
 
-GET /items
-Host: localhost:3000
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhhZjE2YTZmLTcxODEtNGRiMi05M2M0LWM5Y2E5Y2JjOTU2ZCIsImZpcnN0TmFtZSI6Ikplc3NlIiwibGFzdE5hbWUiOiJKdXdlIiwiZW1haWwiOiJqZXNzZWp1d2VAZ21haWwuY29tIiwicGhvbmVOdW1iZXIiOiIwOTAyNjE4NjkzNSIsImlhdCI6MTcyNTk0NTE1NiwiZXhwIjoxNzI1OTQ4NzU2LCJhdWQiOiJsb2NhbGhvc3Q6MzAwMCIsImlzcyI6ImxvY2FsaG9zdDozMDAwIn0.GgHqxfSYuE-XhngbOGFPK0ecSH27GrmQuku6UvLaccs
-?limit=10
-&page=1
-&status=ALL
-&search=
-&dateFound={{dateFound}}
 
+GET /items?{{queryString}}
+Host: localhost:3000
+Authorization: Bearer {{ token }}
 GET /items
 Host: localhost:3000
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhhZjE2YTZmLTcxODEtNGRiMi05M2M0LWM5Y2E5Y2JjOTU2ZCIsImZpcnN0TmFtZSI6Ikplc3NlIiwibGFzdE5hbWUiOiJKdXdlIiwiZW1haWwiOiJqZXNzZWp1d2VAZ21haWwuY29tIiwicGhvbmVOdW1iZXIiOiIwOTAyNjE4NjkzNSIsImlhdCI6MTcyNTg4MTE1OCwiZXhwIjoxNzI1ODg0NzU4LCJhdWQiOiJsb2NhbGhvc3Q6MzAwMCIsImlzcyI6ImxvY2FsaG9zdDozMDAwIn0.-OHID0EI5bAn5z6ZfLJhdYZJHp_I3Pb-dBKFNYMR22Q
+Authorization: Bearer {{ token }}
 ?limit=3
 &page=1
-
-GET /items/7
-Host: localhost:3000
-
-GET /items/analytics/8af16a6f-7181-4db2-93c4-c9ca9cbc956d
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhhZjE2YTZmLTcxODEtNGRiMi05M2M0LWM5Y2E5Y2JjOTU2ZCIsImZpcnN0TmFtZSI6Ikplc3NlIiwibGFzdE5hbWUiOiJKdXdlIiwiZW1haWwiOiJqZXNzZWp1d2VAZ21haWwuY29tIiwicGhvbmVOdW1iZXIiOiIwOTAyNjE4NjkzNSIsImlhdCI6MTcyNTg4MTE1OCwiZXhwIjoxNzI1ODg0NzU4LCJhdWQiOiJsb2NhbGhvc3Q6MzAwMCIsImlzcyI6ImxvY2FsaG9zdDozMDAwIn0.-OHID0EI5bAn5z6ZfLJhdYZJHp_I3Pb-dBKFNYMR22Q
-Host: localhost:3000

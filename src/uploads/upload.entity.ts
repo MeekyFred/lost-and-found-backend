@@ -8,8 +8,8 @@ import { FileTypes } from './enums/file-types.enum';
  */
 @Entity()
 export class Upload {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column({ type: 'varchar', length: 1024, nullable: false })
   name: string;

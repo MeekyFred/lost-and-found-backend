@@ -2,7 +2,9 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 import { CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { JoinColumn, OneToOne } from 'typeorm';
 
+import { ItemCategory } from './enums/itemCategory.enum';
 import { ItemStatus } from './enums/itemStatus.enum';
+
 import { Claim } from 'src/claims/claim.entity';
 
 /**
@@ -20,8 +22,8 @@ export class Item {
   @Column({ type: 'varchar', length: 1024, nullable: false })
   imageUrl: string;
 
-  @Column({ type: 'varchar', length: 96, nullable: false })
-  category: string;
+  @Column({ type: 'enum', enum: ItemCategory, nullable: false })
+  category: ItemCategory;
 
   @Column({ type: 'varchar', length: 96, nullable: true, default: null })
   description?: string;
@@ -46,10 +48,7 @@ export class Item {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToOne(() => Claim, (claim) => claim.item, {
-    eager: true,
-    onDelete: 'CASCADE',
-  })
+  @OneToOne(() => Claim, (claim) => claim.item, { onDelete: 'CASCADE' })
   @JoinColumn()
   claim: Claim;
 

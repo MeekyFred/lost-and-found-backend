@@ -1,8 +1,14 @@
+# Define environment variables
+@token = 
+
 ### Create a claim
-POST /claims/userId/itemId
+POST /claims
 Host: http://localhost:3000
 Content-Type: application/json
+Authorization: Bearer {{ token }}
 
 {
     "dateLost": "2024-03-16T07:46:32+0000",
+    "authorId": "",
+    "itemId": ""
 }

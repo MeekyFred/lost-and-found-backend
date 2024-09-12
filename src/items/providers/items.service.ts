@@ -2,13 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { NotFoundException } from '@nestjs/common';
 import { RequestTimeoutException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { FindOperator, Repository } from 'typeorm';
+import { Between, LessThanOrEqual, ILike, MoreThanOrEqual } from 'typeorm';
 
-import { ItemsAnalyticsProvider } from './items-analytics.provider';
 import { Item } from '../item.entity';
 import { CreateItemDto } from '../dtos/create-item.dto';
 import { PatchItemDto } from '../dtos/patch-item.dto';
 import { GetItemsQueryDto } from '../dtos/get-items-query.dto';
+import { ItemCategory } from '../enums/itemCategory.enum';
+import { ItemStatus } from '../enums/itemStatus.enum';
 
 import { Paginated } from 'src/common/pagination/interfaces/paginated.interface';
 import { PaginationProvider } from 'src/common/pagination/providers/pagination.provider';
@@ -19,7 +21,6 @@ import { PaginationProvider } from 'src/common/pagination/providers/pagination.p
 @Injectable()
 export class ItemsService {
   constructor(
-    private readonly itemsAnalyticsProvider: ItemsAnalyticsProvider,
     private readonly paginationProvider: PaginationProvider,
     @InjectRepository(Item) private readonly itemsRepository: Repository<Item>,
   ) {}
@@ -53,18 +54,60 @@ export class ItemsService {
    * @throws BadRequestException or RequestTimeoutException
    */
   public async findAll(query: GetItemsQueryDto): Promise<Paginated<Item>> {
-    const { page, limit, search, ...queries } = query;
+    const { page, limit, search, from, to, ...otherQueries } = query;
 
-    const category = search;
-    const name = search;
+    // Create the ILike query for partial matching on the 'name' field
+    const name = search ? ILike(`%${search}%`) : undefined;
+    const itemQueries = search ? { ...otherQueries, name } : otherQueries;
 
-    const newQueries = search ? { ...queries, name, category } : queries;
+    // Filter out undefined, empty string values, and FindOperator instances
+    const filteredQueries = Object.entries(itemQueries).filter(([, value]) => {
+      // Skip undefined values
+      if (value === undefined) return false;
 
-    const filters = Object.keys(newQueries).length ? newQueries : undefined;
+      // If value is a string, check if it's empty
+      if (typeof value === 'string') {
+        return value.trim() !== ''; // Only keep non-empty strings
+      }
+
+      // If value is a FindOperator, allow it
+      if (value instanceof FindOperator) {
+        return true;
+      }
+
+      // Check for valid enum values (ItemCategory or ItemStatus)
+      if (
+        Object.values(ItemCategory).includes(value as ItemCategory) ||
+        Object.values(ItemStatus).includes(value as ItemStatus)
+      ) {
+        return true;
+      }
+
+      // Allow numbers
+      return typeof value === 'number';
+    });
+
+    // Rebuild the filtered object from entries
+    const filters: { [key: string]: any } = Object.fromEntries(filteredQueries);
+
+    // Add date range filtering in a simple way
+    if (from && to) {
+      filters.dateFound = Between(from, to);
+    } else if (from) {
+      filters.dateFound = MoreThanOrEqual(from);
+    } else if (to) {
+      filters.dateFound = LessThanOrEqual(to);
+    }
 
     try {
-      // prettier-ignore
-      const items = await this.paginationProvider.paginateQuery({ limit, page }, this.itemsRepository, filters);
+      // Pass the pagination params and filtered queries to the repository
+      const items = await this.paginationProvider.paginateQuery(
+        { limit, page },
+        this.itemsRepository,
+        filters,
+        ['claim'],
+      );
+
       return items;
     } catch (error) {
       throw new RequestTimeoutException('Unable to process request', {
@@ -98,12 +141,12 @@ export class ItemsService {
   }
 
   /**
-   * The method to create a new item in the database
+   * The method to update an item in the database
    * @param patchItemDto
    * @returns Item
    * @throws NotFoundException or RequestTimeoutException
    */
-  public async update(patchItemDto: PatchItemDto): Promise<void> {
+  public async update(patchItemDto: PatchItemDto): Promise<Item> {
     const item = await this.findOneById(patchItemDto.id);
 
     item.name = patchItemDto.name ?? item.name;
@@ -114,21 +157,33 @@ export class ItemsService {
     item.locationFound = patchItemDto.locationFound ?? item.locationFound;
     item.dateFound = patchItemDto.dateFound ?? item.dateFound;
 
+    let updatedItem = item;
+
     try {
-      await this.itemsRepository.save(item);
+      updatedItem = await this.itemsRepository.save(item);
     } catch (error) {
       throw new RequestTimeoutException('Unable to save item', {
         description: 'Database connection error',
       });
     }
+
+    return updatedItem;
   }
 
   /**
    * The method to get items analytics
    * @returns object
-   * @throws NotFoundException or RequestTimeoutException
+   * @throws RequestTimeoutException
    */
-  public async analytics(tokenId: string, id: string): Promise<any> {
-    return await this.itemsAnalyticsProvider.analytics(tokenId, id);
+  public async analytics(): Promise<number> {
+    let totalItems = 0;
+
+    try {
+      totalItems = await this.itemsRepository.count();
+    } catch (error) {
+      throw new RequestTimeoutException('Failed to fetch items count');
+    }
+
+    return totalItems;
   }
 }

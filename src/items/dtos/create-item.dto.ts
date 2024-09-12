@@ -1,7 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsISO8601, IsString, IsUrl } from 'class-validator';
+import { IsEnum, IsDate, IsString, IsUrl } from 'class-validator';
 import { IsNotEmpty, IsOptional } from 'class-validator';
 import { MaxLength, MinLength } from 'class-validator';
+
+import { ItemCategory } from '../enums/itemCategory.enum';
 import { ItemStatus } from '../enums/itemStatus.enum';
 
 /**
@@ -26,21 +28,19 @@ export class CreateItemDto {
   readonly name: string;
 
   /**
-   * Category of item
-   * @example Electronics
+   * Item category
+   * @example ELECTRONICS
    */
   @ApiProperty({
-    type: 'string',
+    type: 'enum',
     required: true,
-    format: 'string',
+    format: 'enum',
     description: 'Category of item',
-    example: 'Electronics',
+    example: 'ELECTRONICS',
   })
-  @IsString()
+  @IsEnum(ItemCategory)
   @IsNotEmpty()
-  @MinLength(3)
-  @MaxLength(96)
-  readonly category: string;
+  readonly category: ItemCategory;
 
   /**
    * Description of tag
@@ -117,7 +117,7 @@ export class CreateItemDto {
     description: 'Date item was found',
     example: '2021-09-01',
   })
-  @IsISO8601()
+  @IsDate()
   @IsNotEmpty()
   readonly dateFound: Date;
 }

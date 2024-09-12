@@ -1,7 +1,9 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsString, IsEmail } from 'class-validator';
+import { IsString, IsEmail, IsEnum } from 'class-validator';
 import { IsNotEmpty, IsOptional } from 'class-validator';
 import { Matches, MaxLength, MinLength } from 'class-validator';
+
+import { UserRole } from '../enums/user-role.enum';
 
 /**
  * Data transfer object for creating a user
@@ -62,4 +64,13 @@ export class CreateUserDto {
       'Minimum eight characters, at least one letter, one number and one special character',
   })
   readonly password: string;
+
+  /**
+   * User role
+   * @example USER
+   */
+  @ApiPropertyOptional({ description: 'User role', example: 'USER' })
+  @IsEnum(UserRole)
+  @IsOptional()
+  readonly role?: UserRole;
 }

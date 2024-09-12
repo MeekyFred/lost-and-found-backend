@@ -1,4 +1,15 @@
-### Login User Endpoint ###
+### Admin Login User Endpoint ###
+
+POST /auth/admin-login HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+
+{
+    "email": "jessejuwe@gmail.com",
+    "password": "$@Admin7@$"
+}
+
+### User Login User Endpoint ###
 
 POST /auth/login HTTP/1.1
 Host: localhost:3000

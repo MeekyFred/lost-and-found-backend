@@ -1,0 +1,20 @@
+# Define environment variables
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhhZjE2YTZmLTcxODEtNGRiMi05M2M0LWM5Y2E5Y2JjOTU2ZCIsImZpcnN0TmFtZSI6Ikplc3NlIiwibGFzdE5hbWUiOiJKdXdlIiwiZW1haWwiOiJqZXNzZWp1d2VAZ21haWwuY29tIiwicGhvbmVOdW1iZXIiOiIwOTAyNjE4NjkzNSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTcyNjE0NjQ0NSwiZXhwIjoxNzI2MTUwMDQ1LCJhdWQiOiJsb2NhbGhvc3Q6MzAwMCIsImlzcyI6ImxvY2FsaG9zdDozMDAwIn0.DNvfVzamrciGfEYFrjBpvXVg0adtFMGVdrw9V2Igr44
+
+### Create an item
+POST /admin/create-item
+Host: http://localhost:3000
+Content-Type: application/json
+Authorization: Bearer {{ token }}
+
+{
+    "id": "",
+    "name": "iPhone 12 Pro",
+    "category": "Electronics",
+    "description": "new-post-7",
+    "status": "UNCLAIMED",
+    "description": "This is an iPhone 12 Pro.",
+    "imageUrl": "http://localhost.com/images/image1.jpg",
+    "locationFound": "Lagos",
+    "dateFound": "2024-03-16T07:46:32+0000",
+}

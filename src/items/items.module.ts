@@ -6,21 +6,19 @@ import { JwtModule } from '@nestjs/jwt';
 import { Item } from './item.entity';
 import { ItemsController } from './items.controller';
 import { ItemsService } from './providers/items.service';
-import { ItemsAnalyticsProvider } from './providers/items-analytics.provider';
 
 import jwtConfig from 'src/auth/config/jwt.config';
 import { PaginationModule } from 'src/common/pagination/pagination.module';
-import { Claim } from 'src/claims/claim.entity';
 
 @Module({
   imports: [
     PaginationModule,
-    TypeOrmModule.forFeature([Claim, Item]),
+    TypeOrmModule.forFeature([Item]),
     ConfigModule.forFeature(jwtConfig),
     JwtModule.registerAsync(jwtConfig.asProvider()),
   ],
   controllers: [ItemsController],
-  providers: [ItemsService, ItemsAnalyticsProvider],
+  providers: [ItemsService],
   exports: [ItemsService],
 })
 export class ItemsModule {}

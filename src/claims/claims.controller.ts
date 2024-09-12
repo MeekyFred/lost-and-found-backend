@@ -57,7 +57,7 @@ export class ClaimsController {
   })
   public async getClaims(@Query() getClaimsQueryDto: GetClaimsQueryDto) {
     const claims = await this.claimsService.findAll(getClaimsQueryDto);
-    return createSuccessResponse('Claims fetched successfully', true, claims);
+    return claims;
   }
 
   /**
@@ -76,7 +76,7 @@ export class ClaimsController {
     description: 'Claim Param DTO',
     example: { id: 1 },
   })
-  public async getItem(@Param() getClaimsQueryDto: GetClaimsParamDto) {
+  public async getClaim(@Param() getClaimsQueryDto: GetClaimsParamDto) {
     const claim = await this.claimsService.findOneById(getClaimsQueryDto.id);
     return createSuccessResponse('Claim fetched successfully', true, claim);
   }

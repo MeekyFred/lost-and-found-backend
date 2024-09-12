@@ -6,9 +6,11 @@ import { FindOptionsWhere, Repository } from 'typeorm';
 
 import { CreateUserProvider } from './create-user.provider';
 import { FindOneUserByEmailProvider } from './find-one-user-by-email.provider';
+import { UpdateUserProvider } from './update-user.provider';
 import { User } from '../user.entity';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { GetUsersQueryDto } from '../dtos/get-users-query.dto';
+import { PatchUserDto } from '../dtos/patch-user.dto';
 import { GoogleUser } from '../interfaces/google-user-interface';
 
 import { Paginated } from 'src/common/pagination/interfaces/paginated.interface';
@@ -21,8 +23,9 @@ import { PaginationProvider } from 'src/common/pagination/providers/pagination.p
 export class UsersService {
   constructor(
     private readonly createUserProvider: CreateUserProvider,
-    private readonly paginationProvider: PaginationProvider,
     private readonly findOneByEmailProvider: FindOneUserByEmailProvider,
+    private readonly paginationProvider: PaginationProvider,
+    private readonly updateUserProvider: UpdateUserProvider,
     @InjectRepository(User) private readonly usersRepository: Repository<User>,
   ) {}
 
@@ -142,5 +145,32 @@ export class UsersService {
         description: 'Could not create a new user',
       });
     }
+  }
+
+  /**
+   * The method to update a new user in the database
+   * @param patchUserDto
+   * @returns User
+   * @throws RequestTimeoutException or BadRequestException
+   */
+  public updateUser(patchUserDto: PatchUserDto): Promise<User> {
+    return this.updateUserProvider.updateUser(patchUserDto);
+  }
+
+  /**
+   * The method to get users analytics
+   * @returns object
+   * @throws RequestTimeoutException
+   */
+  public async analytics(): Promise<number> {
+    let totalUsers = 0;
+
+    try {
+      totalUsers = await this.usersRepository.count();
+    } catch (error) {
+      throw new RequestTimeoutException('Failed to fetch users count');
+    }
+
+    return totalUsers;
   }
 }

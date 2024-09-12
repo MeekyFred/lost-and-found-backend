@@ -1,9 +1,11 @@
-import { IsBoolean, IsEnum, IsISO8601, IsString } from 'class-validator';
+import { IsDate, IsEnum, IsString } from 'class-validator';
 import { IsOptional } from 'class-validator';
 import { IntersectionType } from '@nestjs/swagger';
 
+import { ItemCategory } from '../enums/itemCategory.enum';
 import { ItemStatus } from '../enums/itemStatus.enum';
 import { PaginationQueryDto } from 'src/common/pagination/dtos/pagination-query.dto';
+import { Type } from 'class-transformer';
 
 /**
  * Base Data transfer object for getting items
@@ -28,27 +30,22 @@ class GetItemsBaseDto {
    */
   @IsString()
   @IsOptional()
-  category?: string;
+  category?: ItemCategory;
 
   /**
-   * The archived query
+   * The start of the date range (from)
    */
-  @IsBoolean()
+  @IsDate()
   @IsOptional()
-  isArchived?: boolean;
-
-  /**
-   * The from date range query
-   */
-  @IsISO8601()
-  @IsOptional()
+  @Type(() => Date)
   from?: Date;
 
   /**
-   * The to date range query
+   * The end of the date range (to)
    */
-  @IsISO8601()
+  @IsDate()
   @IsOptional()
+  @Type(() => Date)
   to?: Date;
 }
 

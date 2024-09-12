@@ -3,6 +3,8 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { JoinColumn, OneToMany } from 'typeorm';
 
+import { UserRole } from './enums/user-role.enum';
+
 import { Claim } from 'src/claims/claim.entity';
 
 /**
@@ -33,6 +35,14 @@ export class User {
   @Column({ type: 'varchar', nullable: true, default: null })
   @Exclude()
   googleId?: string;
+
+  @Column({
+    type: 'enum',
+    enum: UserRole,
+    nullable: false,
+    default: UserRole.USER,
+  })
+  role: UserRole;
 
   @CreateDateColumn()
   readonly createdAt: Date;

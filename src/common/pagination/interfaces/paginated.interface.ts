@@ -1,12 +1,13 @@
 export interface Paginated<T> {
+  apiVersion?: string;
   message: string;
   success: boolean;
   data: T[];
   meta: {
-    itemsPerPage: number;
-    totalItems: number;
-    currentPage: number;
-    totalPages: number;
+    limit: number;
+    total: number;
+    page: number;
+    pages: number;
   };
 
   links: {

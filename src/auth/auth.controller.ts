@@ -46,6 +46,20 @@ export class AuthController {
     return createSuccessResponse('User logged in successfully', true, token);
   }
 
+  @Post('admin-login')
+  @ApiOperation({ summary: 'Login an admin' })
+  @ApiResponse({ status: 200, description: 'Admin logged in successfully' })
+  @ApiBody({
+    required: true,
+    type: LoginDto,
+    description: 'Admin login details',
+  })
+  @HttpCode(HttpStatus.OK)
+  public async loginAdmin(@Body() loginDto: LoginDto) {
+    const token = await this.authService.adminLogin(loginDto);
+    return createSuccessResponse('Admin logged in successfully', true, token);
+  }
+
   @Post('logout')
   @ApiOperation({ summary: 'Logout a user' })
   @ApiResponse({ status: 200, description: 'User logged out successfully' })

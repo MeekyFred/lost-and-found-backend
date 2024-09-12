@@ -36,13 +36,11 @@ export class Claim {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @Column({ type: 'uuid', nullable: false })
-  readonly authorId: string;
-
   @ManyToOne(() => User, (user) => user.claims, { eager: true })
-  @JoinColumn({ name: 'authorId', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'authorId' })
   author: User;
 
-  @OneToOne(() => Item, (item) => item.claim)
-  readonly item: Item;
+  @OneToOne(() => Item, { cascade: true })
+  @JoinColumn({ name: 'itemId' }) // Ensures Claim holds the foreign key
+  item: Item;
 }

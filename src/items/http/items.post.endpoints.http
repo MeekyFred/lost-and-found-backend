@@ -1,14 +1,17 @@
+# Define environment variables
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhhZjE2YTZmLTcxODEtNGRiMi05M2M0LWM5Y2E5Y2JjOTU2ZCIsImZpcnN0TmFtZSI6Ikplc3NlIiwibGFzdE5hbWUiOiJKdXdlIiwiZW1haWwiOiJqZXNzZWp1d2VAZ21haWwuY29tIiwicGhvbmVOdW1iZXIiOiIwOTAyNjE4NjkzNSIsImlhdCI6MTcyNjAzNDY0MiwiZXhwIjoxNzI2MDM4MjQyLCJhdWQiOiJsb2NhbGhvc3Q6MzAwMCIsImlzcyI6ImxvY2FsaG9zdDozMDAwIn0.2h4TqlfuuyKdezWmZAW_ypKodRilrweqExqlEAAWaOk
+
 POST /items HTTP/1.1
 Host: localhost:3000
 Content-Type: application/json
+Authorization: Bearer {{ token }}
 
 {
-    "name": "iPhone 12 Pro",
-    "category": "Electronics",
-    "description": "new-post-7",
+    "name": "Wool Sweater",
+    "category": "CLOTHING",
+    "description": "A striped wool sweater",
     "status": "UNCLAIMED",
-    "description": "This is an iPhone 12 Pro.",
-    "imageUrl": "http://localhost.com/images/image1.jpg",
-    "locationFound": "Lagos",
-    "dateFound": "2024-03-16T07:46:32+0000",
+    "imageUrl": "https://d12y4hat48jbni.cloudfront.net/sweater-1726034671393-5d1733a2-33c9-4faa-846e-36f71b23e6a2.jpg",
+    "locationFound": "Main Auditorium",
+    "dateFound": "2024-09-09T09:17:18.228Z"
 }

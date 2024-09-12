@@ -44,6 +44,15 @@ export class AuthService {
   }
 
   /**
+   * The method to login an admin
+   * @param loginDto The user login details
+   * @returns The logged in user
+   */
+  public async adminLogin(loginDto: LoginDto) {
+    return await this.loginProvider.adminLogin(loginDto);
+  }
+
+  /**
    * The method to validate a user
    * @param loginDto The username of the user
    * @returns The user if found, otherwise null

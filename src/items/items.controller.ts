@@ -9,8 +9,6 @@ import { GetItemsParamDto } from './dtos/get-items-param.dto';
 import { PatchItemDto } from './dtos/patch-item.dto';
 import { ItemsService } from './providers/items.service';
 
-import { ActiveUser } from 'src/auth/decorators/active-user.decorator';
-import { IActiveUser } from 'src/auth/interfaces/active-user.interface';
 import { createSuccessResponse } from 'src/common/response/utils/success-response.util';
 
 /**
@@ -60,7 +58,7 @@ export class ItemsController {
   })
   public async getItems(@Query() getItemsQueryDto: GetItemsQueryDto) {
     const items = await this.itemsService.findAll(getItemsQueryDto);
-    return createSuccessResponse('Items fetched successfully', true, items);
+    return items;
   }
 
   /**
@@ -82,22 +80,6 @@ export class ItemsController {
   public async getItem(@Param() getItemsParamsDto: GetItemsParamDto) {
     const item = await this.itemsService.findOneById(getItemsParamsDto.id);
     return createSuccessResponse('Item fetched successfully', true, item);
-  }
-
-  /**
-   * Route for handling get item analytics request
-   * @example HTTP GET /items/analytics
-   * @returns Items analytics
-   */
-  @Get('analytics/:id')
-  @ApiOperation({ summary: 'Get items analytics' })
-  @ApiResponse({ status: 200, description: 'Analytics fetched successfully' })
-  public async getAnalytics(
-    @ActiveUser() user: IActiveUser,
-    @Param('id') id: string,
-  ) {
-    const analytics = await this.itemsService.analytics(user.id, id);
-    return createSuccessResponse('Analytics fetched successfully', true, analytics); // prettier-ignore
   }
 
   /**

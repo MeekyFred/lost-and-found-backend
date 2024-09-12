@@ -1,6 +1,21 @@
+# Define environment variables
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhhZjE2YTZmLTcxODEtNGRiMi05M2M0LWM5Y2E5Y2JjOTU2ZCIsImZpcnN0TmFtZSI6Ikplc3NlIiwibGFzdE5hbWUiOiJKdXdlIiwiZW1haWwiOiJqZXNzZWp1d2VAZ21haWwuY29tIiwicGhvbmVOdW1iZXIiOiIwOTAyNjE4NjkzNSIsImlhdCI6MTcyNjAzNDY0MiwiZXhwIjoxNzI2MDM4MjQyLCJhdWQiOiJsb2NhbGhvc3Q6MzAwMCIsImlzcyI6ImxvY2FsaG9zdDozMDAwIn0.2h4TqlfuuyKdezWmZAW_ypKodRilrweqExqlEAAWaOk
+
 POST http://localhost:3000/uploads/file
 Content-Type: multipart/form-data; boundary=WebKitFormBoundary
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsImVtYWlsIjoiam9obmRvZUBleGFtcGxlLmNvbSIsImlhdCI6MTcyNTQ0MDcxMiwiZXhwIjoxNzI1NDQ0MzEyLCJhdWQiOiJsb2NhbGhvc3Q6MzAwMCIsImlzcyI6ImxvY2FsaG9zdDozMDAwIn0.o476V1EQxjo9y_fxfSvlolJUspvMiers2TNJOiyD_yA
+Authorization: Bearer {{ token }}
+
+file
+--WebKitFormBoundary
+Content-Disposition: form-data; name="file"; filename="sweater.jpg"
+Content-Type: image/jpg
+
+< ./sweater.jpg
+--WebKitFormBoundary--
+
+POST http://localhost:3000/uploads/file
+Content-Type: multipart/form-data; boundary=WebKitFormBoundary
+Authorization: Bearer {{ token }}
 
 file
 --WebKitFormBoundary

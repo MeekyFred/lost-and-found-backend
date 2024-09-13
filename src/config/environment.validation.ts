@@ -33,6 +33,8 @@ const environmentSchema: Joi.ObjectSchema = Joi.object({
   MAIL_FROM: Joi.string().required(),
   SMTP_USERNAME: Joi.string().required(),
   SMTP_PASSWORD: Joi.string().required(),
+  MAILJET_API_KEY: Joi.string().required(),
+  MAILJET_SECRET_KEY: Joi.string().required(),
 });
 
 export default environmentSchema;

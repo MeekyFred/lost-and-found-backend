@@ -61,7 +61,8 @@ export class CreateUserProvider {
     }
 
     // Send welcome email
-    await this.mailService.sendUserWelcome(newUser);
+    // await this.mailService.sendUserWelcome(newUser);
+    await this.mailService.sendMailjetEmail(newUser);
 
     return newUser;
   }

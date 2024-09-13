@@ -6,6 +6,7 @@ import { join } from 'path';
 
 import { MailController } from './mail.controller';
 import { MailService } from './providers/mail.service';
+import { MailjetProvider } from './providers/mailjet.provider';
 
 @Global()
 @Module({
@@ -38,7 +39,7 @@ import { MailService } from './providers/mail.service';
     }),
   ],
   controllers: [MailController],
-  providers: [MailService],
-  exports: [MailService],
+  providers: [MailService, MailjetProvider],
+  exports: [MailService, MailjetProvider],
 })
 export class MailModule {}

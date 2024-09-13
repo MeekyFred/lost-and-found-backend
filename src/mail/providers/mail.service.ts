@@ -1,6 +1,8 @@
 import { Injectable, RequestTimeoutException } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
 
+import { MailjetProvider } from './mailjet.provider';
+import { CreateUserDto } from 'src/users/dtos/create-user.dto';
 import { User } from 'src/users/user.entity';
 
 /**
@@ -8,7 +10,10 @@ import { User } from 'src/users/user.entity';
  */
 @Injectable()
 export class MailService {
-  constructor(private mailerService: MailerService) {}
+  constructor(
+    private readonly mailerService: MailerService,
+    private readonly mailjetProvider: MailjetProvider,
+  ) {}
 
   /**
    * Send welcome email to user
@@ -34,5 +39,13 @@ export class MailService {
     } catch (error) {
       throw new RequestTimeoutException(error);
     }
+  }
+
+  async sendMailjetEmail(user: CreateUserDto | User): Promise<any> {
+    const to = user.email;
+    const subject = 'Welcome to Lost and Found!';
+    const context = { name: user.firstName };
+
+    return await this.mailjetProvider.sendMailjetEmail(to, subject, context); // prettier-ignore
   }
 }

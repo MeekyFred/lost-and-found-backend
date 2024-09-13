@@ -1,0 +1,12 @@
+### Send Mailjet Email
+POST http://localhost:3000/mail/mailjet
+Content-Type: application/json
+
+{
+    "firstName": "Jesse",
+    "lastName": "Juwe",
+    "email": "jessejuwe@gmail.com",
+    "phoneNumber": "09026186935",
+    "password": "Password123#",
+    "role": "ADMIN"
+}

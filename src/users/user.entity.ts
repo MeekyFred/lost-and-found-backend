@@ -53,4 +53,10 @@ export class User {
   @OneToMany(() => Claim, (claims) => claims.author)
   @JoinColumn()
   claims: Claim[];
+
+  @Column({ type: 'varchar', length: 96, nullable: true, default: null })
+  verifyToken: string;
+
+  @Column({ type: 'boolean', nullable: false, default: false })
+  isEmailVerified: boolean;
 }

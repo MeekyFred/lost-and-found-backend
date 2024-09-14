@@ -30,6 +30,8 @@ export class LoginProvider {
     // Find user by email
     const user = await this.usersService.findOneByEmail(loginDto.email);
 
+    const isEmailVerified = user.isEmailVerified;
+
     // Compare password hash
     let isMatch: boolean = false;
 
@@ -44,6 +46,10 @@ export class LoginProvider {
 
     if (!isMatch) {
       throw new UnauthorizedException('Incorect password');
+    }
+
+    if (!isEmailVerified) {
+      throw new UnauthorizedException('Email not verified');
     }
 
     // Generate access token and refresh token

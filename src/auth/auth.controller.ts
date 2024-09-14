@@ -3,8 +3,9 @@ import { HttpCode, HttpStatus } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { Auth } from './decorators/auth.decorator';
-import { AuthType } from './enums/auth-type.enum';
+import { VerifyEmailDto } from './dtos/verify-email.dto';
 import { LoginDto } from './dtos/login.dto';
+import { AuthType } from './enums/auth-type.enum';
 import { AuthService } from './providers/auth.service';
 
 import { createSuccessResponse } from 'src/common/response/utils/success-response.util';
@@ -65,5 +66,13 @@ export class AuthController {
   @ApiResponse({ status: 200, description: 'User logged out successfully' })
   public async logout() {
     return 'Logout user';
+  }
+
+  @Post('verify')
+  @ApiOperation({ summary: 'Verify a user email' })
+  @ApiResponse({ status: 200, description: 'User email verified successfully' })
+  public async verify(@Body() verifyEmailDto: VerifyEmailDto) {
+    const isEmailVerified = await this.authService.verify(verifyEmailDto);
+    return createSuccessResponse('User email verified successfully', true, isEmailVerified); // prettier-ignore
   }
 }

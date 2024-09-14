@@ -16,12 +16,21 @@ Host: localhost:3000
 Content-Type: application/json
 
 {
-    "email": "jessejuwe@gmail.com",
-    "password": "$@Admin7@$"
+    "email": "jesse.juwe@gotrustcrow.com",
+    "password": "password123#"
 }
 
 ### Logout User Endpoint ###
 
 POST /auth/logout HTTP/1.1
 Host: localhost:3000
-Authorization: Bearer <access_token>
+Authorization: Bearer {{ token }}
+
+POST /auth/verify HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+
+{
+    "email": "jesse.juwe@gotrustcrow.com",
+    "token": "nbYrpeuKe6L0V9VOdv633OlxI18e4AUw"
+}

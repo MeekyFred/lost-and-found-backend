@@ -23,7 +23,7 @@ export class MailjetProvider {
           {
             From: {
               Email: 'jesse.juwe@gotrustcrow.com', // Verified email address
-              Name: 'Jesse',
+              Name: 'Meekness',
             },
             To: [
               {
@@ -35,7 +35,7 @@ export class MailjetProvider {
             TemplateID: 6287072, // Mailjet template ID
             TemplateLanguage: true,
             TextPart: subject,
-            Variables: { data: { name: context.name } },
+            Variables: { name: context.name, token: context.token },
           },
         ],
       });

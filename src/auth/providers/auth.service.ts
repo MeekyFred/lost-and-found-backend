@@ -3,6 +3,7 @@ import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { HashingProvider } from './hashing.provider';
 import { LoginProvider } from './login.provider';
 import { LoginDto } from '../dtos/login.dto';
+import { VerifyEmailDto } from '../dtos/verify-email.dto';
 
 import { User } from 'src/users/user.entity';
 import { CreateUserDto } from 'src/users/dtos/create-user.dto';
@@ -76,5 +77,25 @@ export class AuthService {
    */
   public async logout() {
     return 'Logout user';
+  }
+
+  /**
+   * The method to verify
+   * @param verifyEmailDto The username of the user
+   * @returns The user if found, otherwise null
+   */
+  public async verify(verifyEmailDto: VerifyEmailDto): Promise<boolean> {
+    const user = await this.usersService.findOneByEmail(verifyEmailDto.email);
+
+    // prettier-ignore
+    const isTokenMatch = user.verifyToken === verifyEmailDto.token;
+
+    if (user && isTokenMatch) {
+      user.isEmailVerified = true;
+      this.usersService.save(user);
+      return true;
+    }
+
+    return false;
   }
 }

@@ -173,4 +173,17 @@ export class UsersService {
 
     return totalUsers;
   }
+
+  /**
+   * The method to get users analytics
+   * @returns object
+   * @throws RequestTimeoutException
+   */
+  public async save(user: User): Promise<void> {
+    try {
+      await this.usersRepository.save(user);
+    } catch (error) {
+      throw new ConflictException('Failed to save user');
+    }
+  }
 }

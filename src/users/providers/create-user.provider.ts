@@ -7,6 +7,7 @@ import { User } from '../user.entity';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { HashingProvider } from 'src/auth/providers/hashing.provider';
 import { MailService } from 'src/mail/providers/mail.service';
+import { generateVerifyToken } from 'src/utils';
 
 @Injectable()
 export class CreateUserProvider {
@@ -48,8 +49,10 @@ export class CreateUserProvider {
     // prettier-ignore
     const password = await this.hashingProvider.hashPassword(createUserDto.password);
 
+    const verifyToken = generateVerifyToken(32);
+
     // Create User
-    let newUser = this.userRepository.create({ ...createUserDto, password });
+    let newUser = this.userRepository.create({ ...createUserDto, password, verifyToken }); // prettier-ignore
 
     try {
       // Connect to db to save new user
@@ -61,8 +64,9 @@ export class CreateUserProvider {
     }
 
     // Send welcome email
-    // await this.mailService.sendUserWelcome(newUser);
-    await this.mailService.sendMailjetEmail(newUser);
+    const subject = 'Welcome to Lost and Found!';
+    await this.mailService.sendUserWelcome(newUser, subject);
+    // await this.mailService.sendMailjetEmail(newUser);
 
     return newUser;
   }

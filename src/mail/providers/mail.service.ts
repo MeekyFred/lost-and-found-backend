@@ -6,7 +6,7 @@ import { CreateUserDto } from 'src/users/dtos/create-user.dto';
 import { User } from 'src/users/user.entity';
 
 /**
- * Service for sending emails
+ * Service for sending emails to users
  */
 @Injectable()
 export class MailService {
@@ -20,20 +20,18 @@ export class MailService {
    * @param user - user to send email to
    * @returns void
    */
-  async sendUserWelcome(user: User): Promise<void> {
+  async sendUserWelcome(user: User, subject: string): Promise<void> {
     try {
       await this.mailerService.sendMail({
         to: user.email,
-        // override default from
-        from: '"Onbaording Team" <support@lostandfound.com>',
-        subject: 'Welcome to Lost and Found!',
+        subject,
         // `.ejs` extension is appended automatically to template
         template: './welcome',
         // Context is available in email template
         context: {
           name: user.firstName,
           email: user.email,
-          loginUrl: 'http://localhost:3030',
+          verifyToken: user.verifyToken,
         },
       });
     } catch (error) {

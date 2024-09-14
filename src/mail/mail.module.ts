@@ -19,13 +19,13 @@ import { MailjetProvider } from './providers/mailjet.provider';
           port: config.get('appConfig.mailPort'),
           secure: false,
           auth: {
-            user: config.get('appConfig.smtpUsername'),
-            pass: config.get('appConfig.smtpPassword'),
+            user: config.get('appConfig.mailjetApiKey'),
+            pass: config.get('appConfig.mailjetSecretKey'),
           },
           timeout: 5000,
         },
         defaults: {
-          from: config.get('appConfig.mailFrom'),
+          from: `"Lost and Found" <${config.get('appConfig.mailFrom')}>`,
         },
         template: {
           dir: join(__dirname, '../../mail', 'templates'),

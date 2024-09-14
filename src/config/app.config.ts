@@ -12,8 +12,6 @@ export default registerAs('appConfig', () => ({
   mailHost: process.env.MAIL_HOST,
   mailPort: process.env.MAIL_PORT,
   mailFrom: process.env.MAIL_FROM,
-  smtpUsername: process.env.SMTP_USERNAME,
-  smtpPassword: process.env.SMTP_PASSWORD,
   mailjetApiKey: process.env.MAILJET_API_KEY,
   mailjetSecretKey: process.env.MAILJET_SECRET_KEY,
 }));

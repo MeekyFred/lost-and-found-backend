@@ -121,13 +121,13 @@
 <title>cluster_ItemsModule_imports</title>
 <polygon fill="none" stroke="black" points="253,-78 253,-130 389,-130 389,-78 253,-78"/>
 </g>
-<g id="clust4" class="cluster">
-<title>cluster_ItemsModule_exports</title>
-<polygon fill="none" stroke="black" points="194,-208 194,-260 302,-260 302,-208 194,-208"/>
-</g>
 <g id="clust6" class="cluster">
 <title>cluster_ItemsModule_providers</title>
 <polygon fill="none" stroke="black" points="107,-78 107,-130 245,-130 245,-78 107,-78"/>
+</g>
+<g id="clust4" class="cluster">
+<title>cluster_ItemsModule_exports</title>
+<polygon fill="none" stroke="black" points="194,-208 194,-260 302,-260 302,-208 194,-208"/>
 </g>
 <!-- PaginationModule -->
 <g id="node1" class="node">
@@ -264,15 +264,24 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Module } from &#x27;@nestjs/common&#x27;;
+import { ConfigModule } from &#x27;@nestjs/config&#x27;;
 import { TypeOrmModule } from &#x27;@nestjs/typeorm&#x27;;
+import { JwtModule } from &#x27;@nestjs/jwt&#x27;;
 
 import { Item } from &#x27;./item.entity&#x27;;
 import { ItemsController } from &#x27;./items.controller&#x27;;
 import { ItemsService } from &#x27;./providers/items.service&#x27;;
+
+import jwtConfig from &#x27;src/auth/config/jwt.config&#x27;;
 import { PaginationModule } from &#x27;src/common/pagination/pagination.module&#x27;;
 
 @Module({
-  imports: [PaginationModule, TypeOrmModule.forFeature([Item])],
+  imports: [
+    PaginationModule,
+    TypeOrmModule.forFeature([Item]),
+    ConfigModule.forFeature(jwtConfig),
+    JwtModule.registerAsync(jwtConfig.asProvider()),
+  ],
   controllers: [ItemsController],
   providers: [ItemsService],
   exports: [ItemsService],

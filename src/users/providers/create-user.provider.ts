@@ -64,9 +64,7 @@ export class CreateUserProvider {
     }
 
     // Send welcome email
-    const subject = 'Welcome to Lost and Found!';
-    await this.mailService.sendUserWelcome(newUser, subject);
-    // await this.mailService.sendMailjetEmail(newUser);
+    await this.mailService.sendUserWelcome(newUser);
 
     return newUser;
   }

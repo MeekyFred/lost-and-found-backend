@@ -150,7 +150,6 @@
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
-                                    <span class="modifier"></span>
                                     <span class="modifier">Readonly</span>
                                 <a href="#id" >id</a>
                             </li>
@@ -182,7 +181,6 @@
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
-                            <span class="modifier"></span>
                             <span class="modifier">Readonly</span>
                         <span ><b>id</b></span>
                         <a href="#id"><span class="icon ion-ios-link"></span></a>
@@ -200,13 +198,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiPropertyOptional({description: &#x27;User ID&#x27;, example: 1})<br />@IsInt()<br />@IsOptional()<br />@Type(undefined)<br />
+                            @ApiPropertyOptional({description: &#x27;User ID&#x27;, example: &#x27;fgffg5-jdvj5&#x27;})<br />@IsInt()<br />@IsOptional()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/users/dtos/get-users-param.dto.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/users/dtos/get-users-param.dto.ts:15</a></div>
                         </td>
                     </tr>
 
@@ -232,7 +230,6 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiPropertyOptional } from &#x27;@nestjs/swagger&#x27;;
-import { Type } from &#x27;class-transformer&#x27;;
 import { IsInt, IsOptional } from &#x27;class-validator&#x27;;
 
 /**
@@ -243,10 +240,9 @@ export class GetUsersParamDto {
    * User ID
    * @example 1
    */
-  @ApiPropertyOptional({ description: &#x27;User ID&#x27;, example: 1 })
+  @ApiPropertyOptional({ description: &#x27;User ID&#x27;, example: &#x27;fgffg5-jdvj5&#x27; })
   @IsInt()
   @IsOptional()
-  @Type(() &#x3D;&gt; Number)
   readonly id: string;
 }
 </code></pre>

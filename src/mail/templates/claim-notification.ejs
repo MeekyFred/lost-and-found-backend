@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Claim Notification</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .container {
+        width: 100%;
+        max-width: 600px;
+        margin: 50px auto;
+        background-color: #ffffff;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .header {
+        background-color: #007bff;
+        color: #ffffff;
+        padding: 10px 0;
+        text-align: center;
+      }
+      .content {
+        margin: 20px 0;
+      }
+      .footer {
+        text-align: center;
+        color: #777777;
+        font-size: 12px;
+        margin-top: 20px;
+      }
+      .button {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 20px 0;
+        background-color: #007bff;
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Claim Notification</h1>
+      </div>
+
+      <div class="content">
+        <p>Dear <%= userName %>,</p>
+
+        <p>We have received a claim for the item you reported as lost:</p>
+
+        <ul>
+          <li><strong>Item Name:</strong> <%= itemName %></li>
+          <li><strong>Claimant Name:</strong> <%= claimantName %></li>
+          <li><strong>Claim ID:</strong> <%= claimId %></li>
+          <li><strong>Claim Status:</strong> <% claimStatus %></li>
+          <li><strong>Claim Date:</strong> <%= claimDate %></li>
+          <li><strong>Date Lost:</strong> <%= dateLost %></li>
+        </ul>
+
+        <p>Please be patient while we review your claim.</p>
+      </div>
+
+      <div class="footer">
+        <p>
+          &copy; <%= new Date().getFullYear() %> Lost and Found. All rights
+          reserved.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

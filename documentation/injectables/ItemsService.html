@@ -145,6 +145,11 @@
                             <li>
                                     <span class="modifier">Public</span>
                                     <span class="modifier">Async</span>
+                                <a href="#analytics" >analytics</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
                                 <a href="#create" >create</a>
                             </li>
                             <li>
@@ -180,12 +185,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(paginationProvider: <a href="../injectables/PaginationProvider.html" target="_self">PaginationProvider</a>, itemRepository: <a href="../entitys/Item.html" target="_self">Repository&lt;Item&gt;</a>)</code>
+<code>constructor(paginationProvider: <a href="../injectables/PaginationProvider.html" target="_self">PaginationProvider</a>, itemsRepository: <a href="../entitys/Item.html" target="_self">Repository&lt;Item&gt;</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/items/providers/items.service.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/items/providers/items.service.ts:22</a></div>
                             </td>
                         </tr>
 
@@ -215,7 +220,7 @@
                                                     
                                                 </tr>
                                                 <tr>
-                                                        <td>itemRepository</td>
+                                                        <td>itemsRepository</td>
                                                   
                                                         <td>
                                                                         <code><a href="../entitys/Item.html" target="_self" >Repository&lt;Item&gt;</a></code>
@@ -244,6 +249,52 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="analytics"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>analytics</b></span>
+                        <a href="#analytics"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>analytics()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="178"
+                                    class="link-to-prism">src/items/providers/items.service.ts:178</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>The method to get items analytics</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;number&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>object</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="create"></a>
                     <span class="name">
                             <span class="modifier">Public</span>
@@ -263,8 +314,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="30"
-                                    class="link-to-prism">src/items/providers/items.service.ts:30</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="34"
+                                    class="link-to-prism">src/items/providers/items.service.ts:34</a></div>
                         </td>
                     </tr>
 
@@ -336,8 +387,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="52"
-                                    class="link-to-prism">src/items/providers/items.service.ts:52</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="56"
+                                    class="link-to-prism">src/items/providers/items.service.ts:56</a></div>
                         </td>
                     </tr>
 
@@ -407,15 +458,15 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findOneById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                    <code>findOneById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="75"
-                                    class="link-to-prism">src/items/providers/items.service.ts:75</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="125"
+                                    class="link-to-prism">src/items/providers/items.service.ts:125</a></div>
                         </td>
                     </tr>
 
@@ -440,7 +491,7 @@
                                         <tr>
                                                 <td>id</td>
                                             <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                             </td>
 
                                             <td>
@@ -487,15 +538,15 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="99"
-                                    class="link-to-prism">src/items/providers/items.service.ts:99</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="149"
+                                    class="link-to-prism">src/items/providers/items.service.ts:149</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>The method to create a new item in the database</p>
+                        <div class="io-description"><p>The method to update an item in the database</p>
 </div>
 
                             <div class="io-description">
@@ -526,7 +577,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+                            <b>Returns : </b>        <code><a href="../entitys/Item.html" target="_self" >Promise&lt;Item&gt;</a></code>
 
                         </div>
                             <div class="io-description">
@@ -547,12 +598,16 @@
 import { NotFoundException } from &#x27;@nestjs/common&#x27;;
 import { RequestTimeoutException } from &#x27;@nestjs/common&#x27;;
 import { InjectRepository } from &#x27;@nestjs/typeorm&#x27;;
-import { Repository } from &#x27;typeorm&#x27;;
+import { FindOperator, Repository } from &#x27;typeorm&#x27;;
+import { Between, LessThanOrEqual, ILike, MoreThanOrEqual } from &#x27;typeorm&#x27;;
 
 import { Item } from &#x27;../item.entity&#x27;;
 import { CreateItemDto } from &#x27;../dtos/create-item.dto&#x27;;
 import { PatchItemDto } from &#x27;../dtos/patch-item.dto&#x27;;
 import { GetItemsQueryDto } from &#x27;../dtos/get-items-query.dto&#x27;;
+import { ItemCategory } from &#x27;../enums/itemCategory.enum&#x27;;
+import { ItemStatus } from &#x27;../enums/itemStatus.enum&#x27;;
+
 import { Paginated } from &#x27;src/common/pagination/interfaces/paginated.interface&#x27;;
 import { PaginationProvider } from &#x27;src/common/pagination/providers/pagination.provider&#x27;;
 
@@ -563,7 +618,7 @@ import { PaginationProvider } from &#x27;src/common/pagination/providers/paginat
 export class ItemsService {
   constructor(
     private readonly paginationProvider: PaginationProvider,
-    @InjectRepository(Item) private readonly itemRepository: Repository&lt;Item&gt;,
+    @InjectRepository(Item) private readonly itemsRepository: Repository&lt;Item&gt;,
   ) {}
 
   /**
@@ -574,11 +629,11 @@ export class ItemsService {
    */
   public async create(createItemDto: CreateItemDto): Promise&lt;Item&gt; {
     // Create Item
-    let newItem &#x3D; this.itemRepository.create(createItemDto);
+    let newItem &#x3D; this.itemsRepository.create(createItemDto);
 
     try {
       // Connect to db to save new item
-      newItem &#x3D; await this.itemRepository.save(newItem);
+      newItem &#x3D; await this.itemsRepository.save(newItem);
     } catch (error) {
       throw new RequestTimeoutException(&#x27;Unable to save item&#x27;, {
         description: &#x27;Database connection error&#x27;,
@@ -595,13 +650,59 @@ export class ItemsService {
    * @throws BadRequestException or RequestTimeoutException
    */
   public async findAll(query: GetItemsQueryDto): Promise&lt;Paginated&lt;Item&gt;&gt; {
-    const { page, limit, ...queries } &#x3D; query;
+    const { page, limit, search, from, to, ...otherQueries } &#x3D; query;
 
-    const filters &#x3D; Object.keys(queries).length ? queries : undefined;
+    // Create the ILike query for partial matching on the &#x27;name&#x27; field
+    const name &#x3D; search ? ILike(&#x60;%${search}%&#x60;) : undefined;
+    const itemQueries &#x3D; search ? { ...otherQueries, name } : otherQueries;
+
+    // Filter out undefined, empty string values, and FindOperator instances
+    const filteredQueries &#x3D; Object.entries(itemQueries).filter(([, value]) &#x3D;&gt; {
+      // Skip undefined values
+      if (value &#x3D;&#x3D;&#x3D; undefined) return false;
+
+      // If value is a string, check if it&#x27;s empty
+      if (typeof value &#x3D;&#x3D;&#x3D; &#x27;string&#x27;) {
+        return value.trim() !&#x3D;&#x3D; &#x27;&#x27;; // Only keep non-empty strings
+      }
+
+      // If value is a FindOperator, allow it
+      if (value instanceof FindOperator) {
+        return true;
+      }
+
+      // Check for valid enum values (ItemCategory or ItemStatus)
+      if (
+        Object.values(ItemCategory).includes(value as ItemCategory) ||
+        Object.values(ItemStatus).includes(value as ItemStatus)
+      ) {
+        return true;
+      }
+
+      // Allow numbers
+      return typeof value &#x3D;&#x3D;&#x3D; &#x27;number&#x27;;
+    });
+
+    // Rebuild the filtered object from entries
+    const filters: { [key: string]: any } &#x3D; Object.fromEntries(filteredQueries);
+
+    // Add date range filtering in a simple way
+    if (from &amp;&amp; to) {
+      filters.dateFound &#x3D; Between(from, to);
+    } else if (from) {
+      filters.dateFound &#x3D; MoreThanOrEqual(from);
+    } else if (to) {
+      filters.dateFound &#x3D; LessThanOrEqual(to);
+    }
 
     try {
-      // prettier-ignore
-      const items &#x3D; await this.paginationProvider.paginateQuery({ limit, page }, this.itemRepository, filters);
+      // Pass the pagination params and filtered queries to the repository
+      const items &#x3D; await this.paginationProvider.paginateQuery(
+        { limit, page },
+        this.itemsRepository,
+        filters,
+        [&#x27;claim&#x27;],
+      );
 
       return items;
     } catch (error) {
@@ -617,11 +718,11 @@ export class ItemsService {
    * @returns Item
    * @throws NotFoundException or RequestTimeoutException
    */
-  public async findOneById(id: number): Promise&lt;Item&gt; {
+  public async findOneById(id: string): Promise&lt;Item&gt; {
     let item &#x3D; undefined;
 
     try {
-      item &#x3D; await this.itemRepository.findOneBy({ id });
+      item &#x3D; await this.itemsRepository.findOneBy({ id });
     } catch (error) {
       throw new RequestTimeoutException(&#x27;Unable to process request&#x27;, {
         description: &#x27;Database connection error&#x27;,
@@ -636,12 +737,12 @@ export class ItemsService {
   }
 
   /**
-   * The method to create a new item in the database
+   * The method to update an item in the database
    * @param patchItemDto
    * @returns Item
    * @throws NotFoundException or RequestTimeoutException
    */
-  public async update(patchItemDto: PatchItemDto): Promise&lt;void&gt; {
+  public async update(patchItemDto: PatchItemDto): Promise&lt;Item&gt; {
     const item &#x3D; await this.findOneById(patchItemDto.id);
 
     item.name &#x3D; patchItemDto.name ?? item.name;
@@ -652,13 +753,34 @@ export class ItemsService {
     item.locationFound &#x3D; patchItemDto.locationFound ?? item.locationFound;
     item.dateFound &#x3D; patchItemDto.dateFound ?? item.dateFound;
 
+    let updatedItem &#x3D; item;
+
     try {
-      await this.itemRepository.save(item);
+      updatedItem &#x3D; await this.itemsRepository.save(item);
     } catch (error) {
       throw new RequestTimeoutException(&#x27;Unable to save item&#x27;, {
         description: &#x27;Database connection error&#x27;,
       });
     }
+
+    return updatedItem;
+  }
+
+  /**
+   * The method to get items analytics
+   * @returns object
+   * @throws RequestTimeoutException
+   */
+  public async analytics(): Promise&lt;number&gt; {
+    let totalItems &#x3D; 0;
+
+    try {
+      totalItems &#x3D; await this.itemsRepository.count();
+    } catch (error) {
+      throw new RequestTimeoutException(&#x27;Failed to fetch items count&#x27;);
+    }
+
+    return totalItems;
   }
 }
 </code></pre>

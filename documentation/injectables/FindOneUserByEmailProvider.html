@@ -335,7 +335,7 @@ export class FindOneUserByEmailProvider {
     // Check if user already exists with same email
     // Handle exception
     if (!user) {
-      throw new UnauthorizedException(&#x27;User does not exists&#x27;);
+      throw new UnauthorizedException(&#x27;User does not exist&#x27;);
     }
 
     return user;

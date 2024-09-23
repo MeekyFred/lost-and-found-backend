@@ -127,6 +127,9 @@
                             <a href="#environmentSchema" title="src/config/environment.validation.ts" ><b>environmentSchema</b>&nbsp;&nbsp;&nbsp;(src/.../environment.validation.ts)</a>
                         </li>
                         <li>
+                            <a href="#generateVerifyToken" title="src/utils/index.ts" ><b>generateVerifyToken</b>&nbsp;&nbsp;&nbsp;(src/.../index.ts)</a>
+                        </li>
+                        <li>
                             <a href="#REQUEST_USER_KEY" title="src/auth/constants/auth.constants.ts" ><b>REQUEST_USER_KEY</b>&nbsp;&nbsp;&nbsp;(src/.../auth.constants.ts)</a>
                         </li>
                     </ul>
@@ -305,6 +308,7 @@
     .valid(&#x27;development&#x27;, &#x27;production&#x27;, &#x27;test&#x27;, &#x27;staging&#x27;)
     .required()
     .default(&#x27;development&#x27;),
+  PORT: Joi.number().port().default(3000),
   DATABASE_PORT: Joi.number().port().default(5432),
   DATABASE_HOST: Joi.string().required(),
   DATABASE_USER: Joi.string().required(),
@@ -315,6 +319,19 @@
   JWT_TOKEN_ISSUER: Joi.string().required(),
   JWT_ACCESS_TOKEN_TTL: Joi.number().default(3600),
   JWT_REFRESH_TOKEN_TTL: Joi.number().default(86400),
+  GOOGLE_CLIENT_ID: Joi.string().required(),
+  GOOGLE_CLIENT_SECRET: Joi.string().required(),
+  API_VERSION: Joi.string().required(),
+  AWS_PUBLIC_BUCKET_NAME: Joi.string().required(),
+  AWS_REGION: Joi.string().required(),
+  AWS_CLOUDFRONT_URL: Joi.string().required(),
+  AWS_ACCESS_KEY_ID: Joi.string().required(),
+  AWS_SECRET_ACCESS_KEY: Joi.string().required(),
+  MAIL_HOST: Joi.string().required(),
+  MAIL_PORT: Joi.number().port().default(2525),
+  MAIL_FROM: Joi.string().required(),
+  MAILJET_API_KEY: Joi.string().required(),
+  MAILJET_SECRET_KEY: Joi.string().required(),
 })</code>
                     </td>
                 </tr>
@@ -325,6 +342,40 @@
 </div>
                 </td>
             </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/utils/index.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generateVerifyToken"></a>
+                    <span class="name">
+                        <span ><b>generateVerifyToken</b></span>
+                        <a href="#generateVerifyToken"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(length: number) &#x3D;&gt; {
+  const characters &#x3D;
+    &#x27;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890&#x27;;
+  let result &#x3D; &#x27;&#x27;;
+  const charactersLength &#x3D; characters.length;
+
+  for (let i &#x3D; 0; i &lt; length; i++) {
+    result +&#x3D; characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+
+  return result;
+}</code>
+                    </td>
+                </tr>
+
 
         </tbody>
     </table>

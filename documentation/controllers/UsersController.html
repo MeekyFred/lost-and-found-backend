@@ -152,6 +152,7 @@
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Public</span>
                                     <span class="modifier">Async</span>
                                 <a href="#createUser" >createUser</a>
@@ -178,7 +179,8 @@
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier">Public</span>
-                                <a href="#updateUser" >updateUser</a>
+                                    <span class="modifier">Async</span>
+                                <a href="#patchUser" >patchUser</a>
                             </li>
                         </ul>
                     </td>
@@ -207,6 +209,7 @@
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Public</span>
                             <span class="modifier">Async</span>
                         <span ><b>createUser</b></span>
@@ -225,14 +228,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Post()<br />@ApiOperation({summary: &#x27;Create a new user&#x27;})<br />@ApiResponse({status: 201, description: &#x27;User created successfully&#x27;})<br />@ApiBody({required: true, type: CreateUserDto, description: &#x27;User creation details&#x27;})<br /></code>
+                    <code>@Post()<br />@Auth(AuthType.None)<br />@ApiOperation({summary: &#x27;Create a new user&#x27;})<br />@ApiResponse({status: 201, description: &#x27;User created successfully&#x27;})<br />@ApiBody({required: true, type: CreateUserDto, description: &#x27;User creation details&#x27;})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="35"
-                                    class="link-to-prism">src/users/users.controller.ts:35</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="41"
+                                    class="link-to-prism">src/users/users.controller.ts:41</a></div>
                         </td>
                     </tr>
 
@@ -305,7 +308,7 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>deleteUser(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                    <code>deleteUser(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
@@ -313,14 +316,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Delete(&#x27;:id&#x27;)<br />@ApiOperation({summary: &#x27;Delete a user&#x27;})<br />@ApiResponse({status: 200, description: &#x27;User deleted successfully&#x27;})<br />@ApiParam({name: &#x27;id&#x27;, required: true, type: Number, description: &#x27;User ID&#x27;, example: 1})<br /></code>
+                    <code>@Delete(&#x27;:id&#x27;)<br />@ApiOperation({summary: &#x27;Delete a user&#x27;})<br />@ApiResponse({status: 200, description: &#x27;User deleted successfully&#x27;})<br />@ApiParam({name: &#x27;id&#x27;, required: true, type: String, description: &#x27;User ID&#x27;, example: &#x27;7654f3-3fj3-3fj3-3fj3&#x27;})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="94"
-                                    class="link-to-prism">src/users/users.controller.ts:94</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="101"
+                                    class="link-to-prism">src/users/users.controller.ts:101</a></div>
                         </td>
                     </tr>
 
@@ -346,7 +349,7 @@
                                         <tr>
                                                 <td>id</td>
                                             <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                             </td>
 
                                             <td>
@@ -355,7 +358,7 @@
 
 
                                             <td>
-                                                    <p>number describing the ID of user</p>
+                                                    <p>string describing the ID of user</p>
 
                                             </td>
                                         </tr>
@@ -363,7 +366,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
 
                         </div>
                             <div class="io-description">
@@ -407,8 +410,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="56"
-                                    class="link-to-prism">src/users/users.controller.ts:56</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="62"
+                                    class="link-to-prism">src/users/users.controller.ts:62</a></div>
                         </td>
                     </tr>
 
@@ -466,22 +469,23 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="updateUser"></a>
+                    <a name="patchUser"></a>
                     <span class="name">
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier">Public</span>
-                        <span ><b>updateUser</b></span>
-                        <a href="#updateUser"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier">Async</span>
+                        <span ><b>patchUser</b></span>
+                        <a href="#patchUser"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>updateUser(patchUserDto: <a href="../classes/PatchUserDto.html" target="_self">PatchUserDto</a>)</code>
+                    <code>patchUser(patchUserDto: <a href="../classes/PatchUserDto.html" target="_self">PatchUserDto</a>)</code>
                 </td>
             </tr>
 
@@ -495,8 +499,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="74"
-                                    class="link-to-prism">src/users/users.controller.ts:74</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="80"
+                                    class="link-to-prism">src/users/users.controller.ts:80</a></div>
                         </td>
                     </tr>
 
@@ -539,7 +543,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../classes/PatchUserDto.html" target="_self" >PatchUserDto</a></code>
+                            <b>Returns : </b>    <code>unknown</code>
 
                         </div>
                             <div class="io-description">
@@ -554,9 +558,10 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Controller, Param, ParseIntPipe, Query } from &#x27;@nestjs/common&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Controller, Param, Query } from &#x27;@nestjs/common&#x27;;
+import { ClassSerializerInterceptor, UseInterceptors } from &#x27;@nestjs/common&#x27;;
 import { Body, Delete, Get, Patch, Post } from &#x27;@nestjs/common&#x27;;
-import { ApiBody, ApiParam, ApiQuery } from &#x27;@nestjs/swagger&#x27;;
+import { ApiBearerAuth, ApiBody, ApiParam, ApiQuery } from &#x27;@nestjs/swagger&#x27;;
 import { ApiOperation, ApiResponse, ApiTags } from &#x27;@nestjs/swagger&#x27;;
 
 import { CreateUserDto } from &#x27;./dtos/create-user.dto&#x27;;
@@ -564,12 +569,16 @@ import { GetUsersQueryDto } from &#x27;./dtos/get-users-query.dto&#x27;;
 import { PatchUserDto } from &#x27;./dtos/patch-user.dto&#x27;;
 import { UsersService } from &#x27;./providers/users.service&#x27;;
 
+import { Auth } from &#x27;src/auth/decorators/auth.decorator&#x27;;
+import { AuthType } from &#x27;src/auth/enums/auth-type.enum&#x27;;
 import { createSuccessResponse } from &#x27;src/common/response/utils/success-response.util&#x27;;
 
 /**
  * Controller for users
  */
+@ApiBearerAuth()
 @Controller(&#x27;users&#x27;)
+@UseInterceptors(ClassSerializerInterceptor)
 @ApiTags(&#x27;Users&#x27;)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -581,6 +590,7 @@ export class UsersController {
    * @returns response
    */
   @Post()
+  @Auth(AuthType.None)
   @ApiOperation({ summary: &#x27;Create a new user&#x27; })
   @ApiResponse({ status: 201, description: &#x27;User created successfully&#x27; })
   @ApiBody({
@@ -627,14 +637,15 @@ export class UsersController {
     type: PatchUserDto,
     description: &#x27;User update details&#x27;,
   })
-  public updateUser(@Body() patchUserDto: PatchUserDto) {
-    return patchUserDto;
+  public async patchUser(@Body() patchUserDto: PatchUserDto) {
+    const user &#x3D; await this.usersService.updateUser(patchUserDto);
+    return createSuccessResponse(&#x27;User updated successfully&#x27;, true, user);
   }
 
   /**
    * Route for handling delete user request
-   * @param id number describing the ID of user
-   * @example HTTP DELETE /user/1
+   * @param id string describing the ID of user
+   * @example HTTP DELETE /user/7654f3-3fj3-3fj3-3fj3
    * @returns response
    */
   @Delete(&#x27;:id&#x27;)
@@ -643,11 +654,11 @@ export class UsersController {
   @ApiParam({
     name: &#x27;id&#x27;,
     required: true,
-    type: Number,
+    type: String,
     description: &#x27;User ID&#x27;,
-    example: 1,
+    example: &#x27;7654f3-3fj3-3fj3-3fj3&#x27;,
   })
-  public deleteUser(@Param(&#x27;id&#x27;, ParseIntPipe) id: number) {
+  public deleteUser(@Param(&#x27;id&#x27;) id: string) {
     return id;
   }
 }

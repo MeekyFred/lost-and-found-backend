@@ -40,7 +40,7 @@ export class Claim {
   @JoinColumn({ name: 'authorId' })
   author: User;
 
-  @OneToOne(() => Item, { cascade: true })
+  @OneToOne(() => Item, { cascade: true, eager: true })
   @JoinColumn({ name: 'itemId' }) // Ensures Claim holds the foreign key
   item: Item;
 }

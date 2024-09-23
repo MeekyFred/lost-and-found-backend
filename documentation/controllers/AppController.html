@@ -138,6 +138,7 @@
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                 <a href="#getHello" >getHello</a>
                             </li>
                         </ul>
@@ -166,6 +167,7 @@
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
                         <span ><b>getHello</b></span>
                         <a href="#getHello"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -182,14 +184,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get()<br />@ApiOperation({summary: &#x27;Get welcome message&#x27;})<br />@ApiResponse({status: 200, description: &#x27;Lost and Found API&#x27;})<br /></code>
+                    <code>@Get()<br />@Auth(AuthType.None)<br />@ApiOperation({summary: &#x27;Get welcome message&#x27;})<br />@ApiResponse({status: 200, description: &#x27;Lost and Found API&#x27;})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="13"
-                                    class="link-to-prism">src/app.controller.ts:13</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="16"
+                                    class="link-to-prism">src/app.controller.ts:16</a></div>
                         </td>
                     </tr>
 
@@ -213,12 +215,15 @@
 import { ApiOperation, ApiResponse } from &#x27;@nestjs/swagger&#x27;;
 
 import { AppService } from &#x27;./app.service&#x27;;
+import { Auth } from &#x27;./auth/decorators/auth.decorator&#x27;;
+import { AuthType } from &#x27;./auth/enums/auth-type.enum&#x27;;
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
+  @Auth(AuthType.None)
   @ApiOperation({ summary: &#x27;Get welcome message&#x27; })
   @ApiResponse({ status: 200, description: &#x27;Lost and Found API&#x27; })
   getHello(): string {

@@ -176,7 +176,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/auth/guards/access-token/access-token.guard.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/auth/guards/access-token/access-token.guard.ts:14</a></div>
                             </td>
                         </tr>
 
@@ -253,8 +253,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="27"
-                                    class="link-to-prism">src/auth/guards/access-token/access-token.guard.ts:27</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="26"
+                                    class="link-to-prism">src/auth/guards/access-token/access-token.guard.ts:26</a></div>
                         </td>
                     </tr>
 
@@ -330,8 +330,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="55"
-                                    class="link-to-prism">src/auth/guards/access-token/access-token.guard.ts:55</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="48"
+                                    class="link-to-prism">src/auth/guards/access-token/access-token.guard.ts:48</a></div>
                         </td>
                     </tr>
 
@@ -384,14 +384,13 @@
         <div class="tab-pane fade  tab-source-code" id="source">
             <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CanActivate, ExecutionContext } from &#x27;@nestjs/common&#x27;;
 import { Inject, Injectable } from &#x27;@nestjs/common&#x27;;
-import { HttpException, HttpStatus } from &#x27;@nestjs/common&#x27;;
+import { UnauthorizedException } from &#x27;@nestjs/common&#x27;;
 import { ConfigType } from &#x27;@nestjs/config&#x27;;
 import { JwtService } from &#x27;@nestjs/jwt&#x27;;
 import { Request } from &#x27;express&#x27;;
 
 import jwtConfig from &#x27;src/auth/config/jwt.config&#x27;;
 import { REQUEST_USER_KEY } from &#x27;src/auth/constants/auth.constants&#x27;;
-import { createErrorResponse } from &#x27;src/common/response/utils/error-response.util&#x27;;
 /**
  * Guard for access token
  */
@@ -417,20 +416,14 @@ export class AccessTokenGuard implements CanActivate {
 
     // Validate token
     if (!token) {
-      const error &#x3D; &#x27;Unauthorized&#x27;;
-      const message &#x3D; &#x27;User has no valid access token&#x27;;
-      const response &#x3D; createErrorResponse(error, message, HttpStatus.UNAUTHORIZED); // prettier-ignore
-      throw new HttpException(response, HttpStatus.UNAUTHORIZED);
+      throw new UnauthorizedException(&#x27;User has no valid access token&#x27;);
     }
 
     try {
       const payload &#x3D; await this.jwtService.verifyAsync(token, this.jwtConfiguration); // prettier-ignore
       request[REQUEST_USER_KEY] &#x3D; payload;
     } catch {
-      const error &#x3D; &#x27;Unauthorized&#x27;;
-      const message &#x3D; &#x27;Access token not verified&#x27;;
-      const response &#x3D; createErrorResponse(error, message, HttpStatus.UNAUTHORIZED); // prettier-ignore
-      throw new HttpException(response, HttpStatus.UNAUTHORIZED);
+      throw new UnauthorizedException(&#x27;Access token not verified&#x27;);
     }
 
     return true;

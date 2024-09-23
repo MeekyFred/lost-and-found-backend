@@ -158,12 +158,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(request: Request)</code>
+<code>constructor(configService: ConfigService, request: Request)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/common/pagination/providers/pagination.provider.ts:10</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/common/pagination/providers/pagination.provider.ts:11</a></div>
                             </td>
                         </tr>
 
@@ -180,6 +180,18 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                                <tr>
+                                                        <td>configService</td>
+                                                  
+                                                        <td>
+                                                                    <code>ConfigService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
                                                 <tr>
                                                         <td>request</td>
                                                   
@@ -222,15 +234,15 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>paginateQuery(paginationQuery: <a href="../classes/PaginationQueryDto.html" target="_self">PaginationQueryDto</a>, repository: Repository<T>, queryConditions?: FindOptionsWhere<T>)</code>
+                    <code>paginateQuery(paginationQuery: <a href="../classes/PaginationQueryDto.html" target="_self">PaginationQueryDto</a>, repository: Repository<T>, queryConditions?: FindOptionsWhere<T>, relations?: string[])</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="13"
-                                    class="link-to-prism">src/common/pagination/providers/pagination.provider.ts:13</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="17"
+                                    class="link-to-prism">src/common/pagination/providers/pagination.provider.ts:17</a></div>
                         </td>
                     </tr>
 
@@ -294,6 +306,18 @@
 
 
                                         </tr>
+                                        <tr>
+                                                <td>relations</td>
+                                            <td>
+                                                        <code>string[]</code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -314,7 +338,8 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { BadRequestException, Inject, Injectable } from &#x27;@nestjs/common&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ConflictException, Inject, Injectable } from &#x27;@nestjs/common&#x27;;
+import { ConfigService } from &#x27;@nestjs/config&#x27;;
 import { REQUEST } from &#x27;@nestjs/core&#x27;;
 import { Request } from &#x27;express&#x27;;
 import { FindOptionsWhere, ObjectLiteral, Repository } from &#x27;typeorm&#x27;;
@@ -324,31 +349,33 @@ import { Paginated } from &#x27;../interfaces/paginated.interface&#x27;;
 
 @Injectable()
 export class PaginationProvider {
-  constructor(@Inject(REQUEST) private readonly request: Request) {}
+  constructor(
+    private readonly configService: ConfigService,
+    @Inject(REQUEST) private readonly request: Request,
+  ) {}
 
   public async paginateQuery&lt;T extends ObjectLiteral&gt;(
     paginationQuery: PaginationQueryDto,
     repository: Repository&lt;T&gt;,
     queryConditions?: FindOptionsWhere&lt;T&gt;,
+    relations?: string[],
   ): Promise&lt;Paginated&lt;T&gt;&gt; {
     const { limit, page } &#x3D; paginationQuery;
-
     let results: T[] &#x3D; [];
 
     try {
       const found &#x3D; await repository.find({
         where: queryConditions,
+        relations: relations || [],
         skip: (page - 1) * limit,
         take: limit,
       });
 
-      results &#x3D; found;
-    } catch (error) {}
-
-    if (!results) {
-      throw new BadRequestException(&#x27;Adjust page and limit query&#x27;, {
-        description: &#x27;Posts not found&#x27;,
-      });
+      if (found) {
+        results &#x3D; found;
+      }
+    } catch (error) {
+      throw new ConflictException(error);
     }
 
     const protocol &#x3D; this.request.protocol;
@@ -357,21 +384,20 @@ export class PaginationProvider {
     const newUrl &#x3D; new URL(this.request.url, baseURL);
     const { origin, pathname } &#x3D; newUrl;
 
-    const currentPage &#x3D; page;
-    const itemsPerPage &#x3D; limit;
-    const totalItems &#x3D; await repository.count({ where: queryConditions });
-    const totalPages &#x3D; Math.ceil(totalItems / limit);
-    const nextPage &#x3D; page &#x3D;&#x3D;&#x3D; totalPages ? page : page + 1;
+    const total &#x3D; await repository.count({ where: queryConditions });
+    const pages &#x3D; Math.ceil(total / limit);
+    const nextPage &#x3D; page &#x3D;&#x3D;&#x3D; pages ? page : page + 1;
     const previousPage &#x3D; page &#x3D;&#x3D;&#x3D; 1 ? page : page - 1;
 
     const response: Paginated&lt;T&gt; &#x3D; {
-      message: &#x27;Data fetched successfully&#x27;,
+      apiVersion: this.configService.get(&#x27;appConfig.apiVersion&#x27;),
+      message: &#x60;Data fetched successfully&#x60;,
       success: true,
       data: results,
-      meta: { currentPage, itemsPerPage, totalItems, totalPages },
+      meta: { page, limit, total, pages },
       links: {
         first: &#x60;${origin}${pathname}?limit&#x3D;${limit}&amp;page&#x3D;1&#x60;,
-        last: &#x60;${origin}${pathname}?limit&#x3D;${limit}&amp;page&#x3D;${totalPages}&#x60;,
+        last: &#x60;${origin}${pathname}?limit&#x3D;${limit}&amp;page&#x3D;${pages}&#x60;,
         current: &#x60;${origin}${pathname}?limit&#x3D;${limit}&amp;page&#x3D;${page}&#x60;,
         next: &#x60;${origin}${pathname}?limit&#x3D;${limit}&amp;page&#x3D;${nextPage}&#x60;,
         previous: &#x60;${origin}${pathname}?limit&#x3D;${limit}&amp;page&#x3D;${previousPage}&#x60;,

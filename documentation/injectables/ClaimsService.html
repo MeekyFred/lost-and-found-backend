@@ -145,6 +145,11 @@
                             <li>
                                     <span class="modifier">Public</span>
                                     <span class="modifier">Async</span>
+                                <a href="#analytics" >analytics</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
                                 <a href="#create" >create</a>
                             </li>
                             <li>
@@ -156,6 +161,11 @@
                                     <span class="modifier">Public</span>
                                     <span class="modifier">Async</span>
                                 <a href="#findOneById" >findOneById</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#update" >update</a>
                             </li>
                         </ul>
                     </td>
@@ -175,12 +185,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(paginationProvider: <a href="../injectables/PaginationProvider.html" target="_self">PaginationProvider</a>, claimRepository: <a href="../entitys/Claim.html" target="_self">Repository&lt;Claim&gt;</a>)</code>
+<code>constructor(itemsService: <a href="../injectables/ItemsService.html" target="_self">ItemsService</a>, usersService: <a href="../injectables/UsersService.html" target="_self">UsersService</a>, paginationProvider: <a href="../injectables/PaginationProvider.html" target="_self">PaginationProvider</a>, claimRepository: <a href="../entitys/Claim.html" target="_self">Repository&lt;Claim&gt;</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/claims/providers/claims.service.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/claims/providers/claims.service.ts:22</a></div>
                             </td>
                         </tr>
 
@@ -197,6 +207,30 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                                <tr>
+                                                        <td>itemsService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ItemsService.html" target="_self" >ItemsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>usersService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UsersService.html" target="_self" >UsersService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
                                                 <tr>
                                                         <td>paginationProvider</td>
                                                   
@@ -239,6 +273,52 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="analytics"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>analytics</b></span>
+                        <a href="#analytics"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>analytics()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="155"
+                                    class="link-to-prism">src/claims/providers/claims.service.ts:155</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>The method to get claims analytics</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;number&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>object</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="create"></a>
                     <span class="name">
                             <span class="modifier">Public</span>
@@ -258,8 +338,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="30"
-                                    class="link-to-prism">src/claims/providers/claims.service.ts:30</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="37"
+                                    class="link-to-prism">src/claims/providers/claims.service.ts:37</a></div>
                         </td>
                     </tr>
 
@@ -331,8 +411,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="52"
-                                    class="link-to-prism">src/claims/providers/claims.service.ts:52</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="81"
+                                    class="link-to-prism">src/claims/providers/claims.service.ts:81</a></div>
                         </td>
                     </tr>
 
@@ -402,15 +482,15 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findOneById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                    <code>findOneById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="75"
-                                    class="link-to-prism">src/claims/providers/claims.service.ts:75</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="108"
+                                    class="link-to-prism">src/claims/providers/claims.service.ts:108</a></div>
                         </td>
                     </tr>
 
@@ -435,7 +515,80 @@
                                         <tr>
                                                 <td>id</td>
                                             <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../entitys/Claim.html" target="_self" >Promise&lt;Claim&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Claim</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="update"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>update</b></span>
+                        <a href="#update"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>update(patchClaimDto: <a href="../classes/PatchClaimDto.html" target="_self">PatchClaimDto</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="132"
+                                    class="link-to-prism">src/claims/providers/claims.service.ts:132</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>The method to update a claim in the database</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>patchClaimDto</td>
+                                            <td>
+                                                            <code><a href="../classes/PatchClaimDto.html" target="_self" >PatchClaimDto</a></code>
                                             </td>
 
                                             <td>
@@ -474,8 +627,13 @@ import { Repository } from &#x27;typeorm&#x27;;
 import { Claim } from &#x27;../claim.entity&#x27;;
 import { CreateClaimDto } from &#x27;../dtos/create-claim.dto&#x27;;
 import { GetClaimsQueryDto } from &#x27;../dtos/get-claims-query.dto&#x27;;
+import { PatchClaimDto } from &#x27;../dtos/patch-claim.dto&#x27;;
+
 import { Paginated } from &#x27;src/common/pagination/interfaces/paginated.interface&#x27;;
 import { PaginationProvider } from &#x27;src/common/pagination/providers/pagination.provider&#x27;;
+import { ItemsService } from &#x27;src/items/providers/items.service&#x27;;
+import { ItemStatus } from &#x27;src/items/enums/itemStatus.enum&#x27;;
+import { UsersService } from &#x27;src/users/providers/users.service&#x27;;
 
 /**
  * Service dealing with claims. It is used to provide the claim data.
@@ -483,6 +641,8 @@ import { PaginationProvider } from &#x27;src/common/pagination/providers/paginat
 @Injectable()
 export class ClaimsService {
   constructor(
+    private readonly itemsService: ItemsService,
+    private readonly usersService: UsersService,
     private readonly paginationProvider: PaginationProvider,
     @InjectRepository(Claim)
     private readonly claimRepository: Repository&lt;Claim&gt;,
@@ -495,12 +655,34 @@ export class ClaimsService {
    * @throws RequestTimeoutException
    */
   public async create(createClaimDto: CreateClaimDto): Promise&lt;Claim&gt; {
-    // Create Claim
-    let newClaim &#x3D; this.claimRepository.create(createClaimDto);
+    // Find user by id
+    const user &#x3D; await this.usersService.findOneById(createClaimDto.authorId);
+
+    // Find item by id
+    const item &#x3D; await this.itemsService.findOneById(createClaimDto.itemId);
+
+    let newClaim: Claim;
 
     try {
-      // Connect to db to save new claim
-      newClaim &#x3D; await this.claimRepository.save(newClaim);
+      // Transaction to ensure atomicity
+      await this.claimRepository.manager.transaction(async (entityManager) &#x3D;&gt; {
+        // Create and save the new claim
+        newClaim &#x3D; this.claimRepository.create({
+          dateLost: createClaimDto.dateLost,
+          author: user,
+          item,
+        });
+        newClaim &#x3D; await entityManager.save(newClaim);
+
+        // Update item status and associate claim
+        item.status &#x3D; ItemStatus.PROCESSING;
+        item.claim &#x3D; newClaim;
+        await entityManager.save(item);
+
+        // Update user with new claim
+        user.claims &#x3D; user.claims ? [...user.claims, newClaim] : [newClaim];
+        await entityManager.save(user);
+      });
     } catch (error) {
       throw new RequestTimeoutException(&#x27;Unable to save claim&#x27;, {
         description: &#x27;Database connection error&#x27;,
@@ -522,8 +704,12 @@ export class ClaimsService {
     const filters &#x3D; Object.keys(queries).length ? queries : undefined;
 
     try {
-      // prettier-ignore
-      const claims &#x3D; await this.paginationProvider.paginateQuery({ limit, page }, this.claimRepository, filters);
+      const claims &#x3D; await this.paginationProvider.paginateQuery(
+        { limit, page },
+        this.claimRepository,
+        filters,
+        [&#x27;item&#x27;],
+      );
 
       return claims;
     } catch (error) {
@@ -539,7 +725,7 @@ export class ClaimsService {
    * @returns Claim
    * @throws NotFoundException or RequestTimeoutException
    */
-  public async findOneById(id: number): Promise&lt;Claim&gt; {
+  public async findOneById(id: string): Promise&lt;Claim&gt; {
     let claim &#x3D; undefined;
 
     try {
@@ -555,6 +741,47 @@ export class ClaimsService {
     }
 
     return claim;
+  }
+
+  /**
+   * The method to update a claim in the database
+   * @param patchClaimDto
+   * @returns Claim
+   * @throws NotFoundException or RequestTimeoutException
+   */
+  public async update(patchClaimDto: PatchClaimDto): Promise&lt;Claim&gt; {
+    const claim &#x3D; await this.findOneById(patchClaimDto.id);
+
+    claim.status &#x3D; patchClaimDto.status ?? claim.status;
+
+    let updatedClaim &#x3D; claim;
+
+    try {
+      updatedClaim &#x3D; await this.claimRepository.save(claim);
+    } catch (error) {
+      throw new RequestTimeoutException(&#x27;Unable to save item&#x27;, {
+        description: &#x27;Database connection error&#x27;,
+      });
+    }
+
+    return updatedClaim;
+  }
+
+  /**
+   * The method to get claims analytics
+   * @returns object
+   * @throws RequestTimeoutException
+   */
+  public async analytics(): Promise&lt;number&gt; {
+    let totalClaims &#x3D; 0;
+
+    try {
+      totalClaims &#x3D; await this.claimRepository.count();
+    } catch (error) {
+      throw new RequestTimeoutException(&#x27;Failed to fetch claims count&#x27;);
+    }
+
+    return totalClaims;
   }
 }
 </code></pre>

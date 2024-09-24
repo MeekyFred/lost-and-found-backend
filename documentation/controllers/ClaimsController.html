@@ -163,7 +163,7 @@
                                     <span class="modifier"></span>
                                     <span class="modifier">Public</span>
                                     <span class="modifier">Async</span>
-                                <a href="#getClaims" >getClaims</a>
+                                <a href="#getClaim" >getClaim</a>
                             </li>
                             <li>
                                     <span class="modifier"></span>
@@ -172,7 +172,7 @@
                                     <span class="modifier"></span>
                                     <span class="modifier">Public</span>
                                     <span class="modifier">Async</span>
-                                <a href="#getItem" >getItem</a>
+                                <a href="#getClaims" >getClaims</a>
                             </li>
                         </ul>
                     </td>
@@ -225,8 +225,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="35"
-                                    class="link-to-prism">src/claims/claims.controller.ts:35</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="37"
+                                    class="link-to-prism">src/claims/claims.controller.ts:37</a></div>
                         </td>
                     </tr>
 
@@ -284,7 +284,7 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getClaims"></a>
+                    <a name="getClaim"></a>
                     <span class="name">
                             <span class="modifier"></span>
                             <span class="modifier"></span>
@@ -292,104 +292,15 @@
                             <span class="modifier"></span>
                             <span class="modifier">Public</span>
                             <span class="modifier">Async</span>
-                        <span ><b>getClaims</b></span>
-                        <a href="#getClaims"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>getClaim</b></span>
+                        <a href="#getClaim"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getClaims(getClaimsQueryDto: <a href="../classes/GetClaimsQueryDto.html" target="_self">GetClaimsQueryDto</a>)</code>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="col-md-4">
-                    <b>Decorators : </b>
-                    <br />
-                    <code>@Get()<br />@ApiOperation({summary: &#x27;Get all claims&#x27;})<br />@ApiResponse({status: 200, description: &#x27;Claims fetched successfully&#x27;})<br />@ApiQuery({name: &#x27;getClaimsQueryDto&#x27;, required: false, type: GetClaimsQueryDto, description: &#x27;Claims Query DTO&#x27;, example: undefined})<br /></code>
-                </td>
-            </tr>
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="56"
-                                    class="link-to-prism">src/claims/claims.controller.ts:56</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                        <div class="io-description"><p>Route for handling get claims request</p>
-<b>Example :</b><div><pre class="line-numbers"><code class="language-html"></code></pre></div></div>
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                                <td>Description</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>getClaimsQueryDto</td>
-                                            <td>
-                                                            <code><a href="../classes/GetClaimsQueryDto.html" target="_self" >GetClaimsQueryDto</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                            <td>
-                                                    <p>A DTO used to validate incoming GET request queries</p>
-
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>    <code>unknown</code>
-
-                        </div>
-                            <div class="io-description">
-                                <p>Claim[]</p>
-
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="getItem"></a>
-                    <span class="name">
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
-                            <span class="modifier">Public</span>
-                            <span class="modifier">Async</span>
-                        <span ><b>getItem</b></span>
-                        <a href="#getItem"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getItem(getClaimsQueryDto: <a href="../classes/GetClaimsParamDto.html" target="_self">GetClaimsParamDto</a>)</code>
+                    <code>getClaim(getClaimsQueryDto: <a href="../classes/GetClaimsParamDto.html" target="_self">GetClaimsParamDto</a>)</code>
                 </td>
             </tr>
 
@@ -403,8 +314,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="77"
-                                    class="link-to-prism">src/claims/claims.controller.ts:77</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="79"
+                                    class="link-to-prism">src/claims/claims.controller.ts:79</a></div>
                         </td>
                     </tr>
 
@@ -458,13 +369,103 @@
             </tr>
         </tbody>
     </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getClaims"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Public</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>getClaims</b></span>
+                        <a href="#getClaims"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getClaims(getClaimsQueryDto: <a href="../classes/GetClaimsQueryDto.html" target="_self">GetClaimsQueryDto</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get()<br />@ApiOperation({summary: &#x27;Get all claims&#x27;})<br />@ApiResponse({status: 200, description: &#x27;Claims fetched successfully&#x27;})<br />@ApiQuery({name: &#x27;getClaimsQueryDto&#x27;, required: false, type: GetClaimsQueryDto, description: &#x27;Claims Query DTO&#x27;, example: undefined})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="58"
+                                    class="link-to-prism">src/claims/claims.controller.ts:58</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Route for handling get claims request</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html"></code></pre></div></div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>getClaimsQueryDto</td>
+                                            <td>
+                                                            <code><a href="../classes/GetClaimsQueryDto.html" target="_self" >GetClaimsQueryDto</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>A DTO used to validate incoming GET request queries</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Claim[]</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </section>    </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Controller, Param, Query } from &#x27;@nestjs/common&#x27;;
 import { Body, Get, Post } from &#x27;@nestjs/common&#x27;;
-import { ApiBody, ApiParam, ApiQuery, ApiTags } from &#x27;@nestjs/swagger&#x27;;
+import { ApiBody, ApiParam, ApiQuery } from &#x27;@nestjs/swagger&#x27;;
+import { ApiBearerAuth, ApiTags } from &#x27;@nestjs/swagger&#x27;;
 import { ApiOperation, ApiResponse } from &#x27;@nestjs/swagger&#x27;;
 
 import { CreateClaimDto } from &#x27;./dtos/create-claim.dto&#x27;;
@@ -477,6 +478,7 @@ import { createSuccessResponse } from &#x27;src/common/response/utils/success-re
 /**
  * Controller for Claims
  */
+@ApiBearerAuth()
 @Controller(&#x27;claims&#x27;)
 @ApiTags(&#x27;Claims&#x27;)
 export class ClaimsController {
@@ -519,7 +521,7 @@ export class ClaimsController {
   })
   public async getClaims(@Query() getClaimsQueryDto: GetClaimsQueryDto) {
     const claims &#x3D; await this.claimsService.findAll(getClaimsQueryDto);
-    return createSuccessResponse(&#x27;Claims fetched successfully&#x27;, true, claims);
+    return claims;
   }
 
   /**
@@ -538,7 +540,7 @@ export class ClaimsController {
     description: &#x27;Claim Param DTO&#x27;,
     example: { id: 1 },
   })
-  public async getItem(@Param() getClaimsQueryDto: GetClaimsParamDto) {
+  public async getClaim(@Param() getClaimsQueryDto: GetClaimsParamDto) {
     const claim &#x3D; await this.claimsService.findOneById(getClaimsQueryDto.id);
     return createSuccessResponse(&#x27;Claim fetched successfully&#x27;, true, claim);
   }

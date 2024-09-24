@@ -234,8 +234,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="36"
-                                    class="link-to-prism">src/items/items.controller.ts:36</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="38"
+                                    class="link-to-prism">src/items/items.controller.ts:38</a></div>
                         </td>
                     </tr>
 
@@ -323,8 +323,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="78"
-                                    class="link-to-prism">src/items/items.controller.ts:78</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="80"
+                                    class="link-to-prism">src/items/items.controller.ts:80</a></div>
                         </td>
                     </tr>
 
@@ -412,8 +412,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="57"
-                                    class="link-to-prism">src/items/items.controller.ts:57</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="59"
+                                    class="link-to-prism">src/items/items.controller.ts:59</a></div>
                         </td>
                     </tr>
 
@@ -501,8 +501,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="97"
-                                    class="link-to-prism">src/items/items.controller.ts:97</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="99"
+                                    class="link-to-prism">src/items/items.controller.ts:99</a></div>
                         </td>
                     </tr>
 
@@ -563,7 +563,7 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Controller, Param, Query } from &#x27;@nestjs/common&#x27;;
 import { Body, Get, Patch, Post } from &#x27;@nestjs/common&#x27;;
 import { ApiBody, ApiParam, ApiQuery, ApiTags } from &#x27;@nestjs/swagger&#x27;;
-import { ApiOperation, ApiResponse } from &#x27;@nestjs/swagger&#x27;;
+import { ApiBearerAuth, ApiOperation, ApiResponse } from &#x27;@nestjs/swagger&#x27;;
 
 import { CreateItemDto } from &#x27;./dtos/create-item.dto&#x27;;
 import { GetItemsQueryDto } from &#x27;./dtos/get-items-query.dto&#x27;;
@@ -576,6 +576,8 @@ import { createSuccessResponse } from &#x27;src/common/response/utils/success-re
 /**
  * Controller for items
  */
+
+@ApiBearerAuth()
 @Controller(&#x27;items&#x27;)
 @ApiTags(&#x27;Items&#x27;)
 export class ItemsController {
@@ -618,7 +620,7 @@ export class ItemsController {
   })
   public async getItems(@Query() getItemsQueryDto: GetItemsQueryDto) {
     const items &#x3D; await this.itemsService.findAll(getItemsQueryDto);
-    return createSuccessResponse(&#x27;Items fetched successfully&#x27;, true, items);
+    return items;
   }
 
   /**

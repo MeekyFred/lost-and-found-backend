@@ -8,11 +8,13 @@ import { Claim } from '../claim.entity';
 import { CreateClaimDto } from '../dtos/create-claim.dto';
 import { GetClaimsQueryDto } from '../dtos/get-claims-query.dto';
 import { PatchClaimDto } from '../dtos/patch-claim.dto';
+import { ClaimStatus } from '../enums/claimStatus.enum';
 
 import { Paginated } from 'src/common/pagination/interfaces/paginated.interface';
 import { PaginationProvider } from 'src/common/pagination/providers/pagination.provider';
 import { ItemsService } from 'src/items/providers/items.service';
 import { ItemStatus } from 'src/items/enums/itemStatus.enum';
+import { MailService } from 'src/mail/providers/mail.service';
 import { UsersService } from 'src/users/providers/users.service';
 
 /**
@@ -22,6 +24,7 @@ import { UsersService } from 'src/users/providers/users.service';
 export class ClaimsService {
   constructor(
     private readonly itemsService: ItemsService,
+    private readonly mailService: MailService,
     private readonly usersService: UsersService,
     private readonly paginationProvider: PaginationProvider,
     @InjectRepository(Claim)
@@ -62,6 +65,9 @@ export class ClaimsService {
         // Update user with new claim
         user.claims = user.claims ? [...user.claims, newClaim] : [newClaim];
         await entityManager.save(user);
+
+        // Send email notification
+        await this.mailService.sendClaimNotification(user, newClaim);
       });
     } catch (error) {
       throw new RequestTimeoutException('Unable to save claim', {
@@ -132,17 +138,44 @@ export class ClaimsService {
   public async update(patchClaimDto: PatchClaimDto): Promise<Claim> {
     const claim = await this.findOneById(patchClaimDto.id);
 
-    claim.status = patchClaimDto.status ?? claim.status;
-
     let updatedClaim = claim;
 
+    const item = await this.itemsService.findOneById(claim.item.id);
+
     try {
-      updatedClaim = await this.claimRepository.save(claim);
+      // Transaction to ensure atomicity
+      await this.claimRepository.manager.transaction(async (entityManager) => {
+        claim.status = patchClaimDto.status ?? claim.status;
+        updatedClaim = await entityManager.save(claim);
+
+        switch (claim.status) {
+          case ClaimStatus.ACCEPTED:
+            item.status = ItemStatus.CLAIMED;
+            break;
+          case ClaimStatus.DECLINED:
+            item.status = ItemStatus.UNCLAIMED;
+            break;
+          case ClaimStatus.PENDING:
+            item.status = ItemStatus.PROCESSING;
+            break;
+          case ClaimStatus.SUBMITTED:
+            item.status = ItemStatus.PROCESSING;
+            break;
+          default:
+            item.status = ItemStatus.PROCESSING;
+            break;
+        }
+
+        await entityManager.save(item);
+      });
     } catch (error) {
-      throw new RequestTimeoutException('Unable to save item', {
+      throw new RequestTimeoutException('Unable to save claim', {
         description: 'Database connection error',
       });
     }
+
+    // Send email notification
+    await this.mailService.sendClaimUpdateNotification(claim.author, updatedClaim); // prettier-ignore
 
     return updatedClaim;
   }

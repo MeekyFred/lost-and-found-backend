@@ -158,12 +158,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(hashingProvider: <a href="../injectables/HashingProvider.html" target="_self">HashingProvider</a>, userRepository: <a href="../entitys/User.html" target="_self">Repository&lt;User&gt;</a>)</code>
+<code>constructor(mailService: <a href="../injectables/MailService.html" target="_self">MailService</a>, hashingProvider: <a href="../injectables/HashingProvider.html" target="_self">HashingProvider</a>, userRepository: <a href="../entitys/User.html" target="_self">Repository&lt;User&gt;</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/users/providers/create-user.provider.ts:11</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/users/providers/create-user.provider.ts:13</a></div>
                             </td>
                         </tr>
 
@@ -180,6 +180,18 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                                <tr>
+                                                        <td>mailService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/MailService.html" target="_self" >MailService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
                                                 <tr>
                                                         <td>hashingProvider</td>
                                                   
@@ -241,8 +253,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="24"
-                                    class="link-to-prism">src/users/providers/create-user.provider.ts:24</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="27"
+                                    class="link-to-prism">src/users/providers/create-user.provider.ts:27</a></div>
                         </td>
                     </tr>
 
@@ -305,10 +317,13 @@ import { Repository } from &#x27;typeorm&#x27;;
 import { User } from &#x27;../user.entity&#x27;;
 import { CreateUserDto } from &#x27;../dtos/create-user.dto&#x27;;
 import { HashingProvider } from &#x27;src/auth/providers/hashing.provider&#x27;;
+import { MailService } from &#x27;src/mail/providers/mail.service&#x27;;
+import { generateVerifyToken } from &#x27;src/utils&#x27;;
 
 @Injectable()
 export class CreateUserProvider {
   constructor(
+    private readonly mailService: MailService,
     @Inject(forwardRef(() &#x3D;&gt; HashingProvider))
     private readonly hashingProvider: HashingProvider,
     @InjectRepository(User)
@@ -345,8 +360,10 @@ export class CreateUserProvider {
     // prettier-ignore
     const password &#x3D; await this.hashingProvider.hashPassword(createUserDto.password);
 
+    const verifyToken &#x3D; generateVerifyToken(32);
+
     // Create User
-    let newUser &#x3D; this.userRepository.create({ ...createUserDto, password });
+    let newUser &#x3D; this.userRepository.create({ ...createUserDto, password, verifyToken }); // prettier-ignore
 
     try {
       // Connect to db to save new user
@@ -356,6 +373,11 @@ export class CreateUserProvider {
         description: &#x27;Database connection error&#x27;,
       });
     }
+
+    // Send welcome email
+    const subject &#x3D; &#x27;Welcome to Lost and Found!&#x27;;
+    await this.mailService.sendUserWelcome(newUser, subject);
+    // await this.mailService.sendMailjetEmail(newUser);
 
     return newUser;
   }

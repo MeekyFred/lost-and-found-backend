@@ -145,6 +145,11 @@
                             <li>
                                     <span class="modifier">Public</span>
                                     <span class="modifier">Async</span>
+                                <a href="#adminLogin" >adminLogin</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
                                 <a href="#login" >login</a>
                             </li>
                         </ul>
@@ -165,12 +170,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(hashingProvider: <a href="../injectables/HashingProvider.html" target="_self">HashingProvider</a>, jwtService: JwtService, usersService: <a href="../injectables/UsersService.html" target="_self">UsersService</a>, jwtConfiguration: ConfigType<>)</code>
+<code>constructor(generateTokensProvider: <a href="../injectables/GenerateTokensProvider.html" target="_self">GenerateTokensProvider</a>, hashingProvider: <a href="../injectables/HashingProvider.html" target="_self">HashingProvider</a>, usersService: <a href="../injectables/UsersService.html" target="_self">UsersService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/auth/providers/login.provider.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/auth/providers/login.provider.ts:15</a></div>
                             </td>
                         </tr>
 
@@ -188,6 +193,18 @@
                                         </thead>
                                         <tbody>
                                                 <tr>
+                                                        <td>generateTokensProvider</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/GenerateTokensProvider.html" target="_self" >GenerateTokensProvider</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
                                                         <td>hashingProvider</td>
                                                   
                                                         <td>
@@ -200,34 +217,10 @@
                                                     
                                                 </tr>
                                                 <tr>
-                                                        <td>jwtService</td>
-                                                  
-                                                        <td>
-                                                                    <code>JwtService</code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                                <tr>
                                                         <td>usersService</td>
                                                   
                                                         <td>
                                                                         <code><a href="../injectables/UsersService.html" target="_self" >UsersService</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                        <td>jwtConfiguration</td>
-                                                  
-                                                        <td>
-                                                                    <code>ConfigType&lt;&gt;</code>
                                                         </td>
                                                   
                                                     <td>
@@ -253,6 +246,79 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="adminLogin"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>adminLogin</b></span>
+                        <a href="#adminLogin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>adminLogin(loginDto: <a href="../classes/LoginDto.html" target="_self">LoginDto</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="67"
+                                    class="link-to-prism">src/auth/providers/login.provider.ts:67</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Sign in an admin</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>loginDto</td>
+                                            <td>
+                                                            <code><a href="../classes/LoginDto.html" target="_self" >LoginDto</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>boolean</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="login"></a>
                     <span class="name">
                             <span class="modifier">Public</span>
@@ -272,8 +338,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="33"
-                                    class="link-to-prism">src/auth/providers/login.provider.ts:33</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="29"
+                                    class="link-to-prism">src/auth/providers/login.provider.ts:29</a></div>
                         </td>
                     </tr>
 
@@ -330,15 +396,13 @@
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { forwardRef, Inject, Injectable } from &#x27;@nestjs/common&#x27;;
 import { RequestTimeoutException, UnauthorizedException } from &#x27;@nestjs/common&#x27;;
-import { ConfigType } from &#x27;@nestjs/config&#x27;;
-import { JwtService, JwtSignOptions } from &#x27;@nestjs/jwt&#x27;;
 
+import { GenerateTokensProvider } from &#x27;./generate-tokens.provider&#x27;;
 import { HashingProvider } from &#x27;./hashing.provider&#x27;;
-import jwtConfig from &#x27;../config/jwt.config&#x27;;
 import { LoginDto } from &#x27;../dtos/login.dto&#x27;;
 
+import { UserRole } from &#x27;src/users/enums/user-role.enum&#x27;;
 import { UsersService } from &#x27;src/users/providers/users.service&#x27;;
-import { IActiveUser } from &#x27;../interfaces/active-user.interface&#x27;;
 
 /**
  * Login provider
@@ -346,12 +410,10 @@ import { IActiveUser } from &#x27;../interfaces/active-user.interface&#x27;;
 @Injectable()
 export class LoginProvider {
   constructor(
+    private readonly generateTokensProvider: GenerateTokensProvider,
     private readonly hashingProvider: HashingProvider,
-    private readonly jwtService: JwtService,
     @Inject(forwardRef(() &#x3D;&gt; UsersService))
     private readonly usersService: UsersService,
-    @Inject(jwtConfig.KEY)
-    private readonly jwtConfiguration: ConfigType&lt;typeof jwtConfig&gt;,
   ) {}
 
   /**
@@ -361,6 +423,44 @@ export class LoginProvider {
    * @throws RequestTimeoutException or UnauthorizedException
    */
   public async login(loginDto: LoginDto) {
+    // Find user by email
+    const user &#x3D; await this.usersService.findOneByEmail(loginDto.email);
+
+    const isEmailVerified &#x3D; user.isEmailVerified;
+
+    // Compare password hash
+    let isMatch: boolean &#x3D; false;
+
+    try {
+      // prettier-ignore
+      isMatch &#x3D; await this.hashingProvider.comparePassword(loginDto.password, user.password);
+    } catch (error) {
+      throw new RequestTimeoutException(error, {
+        description: &#x27;Failed to compare passowrd&#x27;,
+      });
+    }
+
+    if (!isMatch) {
+      throw new UnauthorizedException(&#x27;Incorect password&#x27;);
+    }
+
+    if (!isEmailVerified) {
+      throw new UnauthorizedException(&#x27;Email not verified&#x27;);
+    }
+
+    // Generate access token and refresh token
+    const tokens &#x3D; await this.generateTokensProvider.generateTokens(user);
+
+    return tokens;
+  }
+
+  /**
+   * Sign in an admin
+   * @param loginDto
+   * @returns boolean
+   * @throws RequestTimeoutException or UnauthorizedException
+   */
+  public async adminLogin(loginDto: LoginDto) {
     // Find user by email
     const user &#x3D; await this.usersService.findOneByEmail(loginDto.email);
 
@@ -380,18 +480,14 @@ export class LoginProvider {
       throw new UnauthorizedException(&#x27;Incorect password&#x27;);
     }
 
-    const payload: IActiveUser &#x3D; { sub: user.id, email: user.email };
+    if (user.role &#x3D;&#x3D;&#x3D; UserRole.USER) {
+      throw new UnauthorizedException(&#x27;Not authorized to login as user&#x27;);
+    }
 
-    const options: JwtSignOptions &#x3D; {
-      audience: this.jwtConfiguration.audience,
-      issuer: this.jwtConfiguration.issuer,
-      secret: this.jwtConfiguration.secret,
-      expiresIn: this.jwtConfiguration.accessTokenTTL,
-    };
+    // Generate access token and refresh token
+    const tokens &#x3D; await this.generateTokensProvider.generateTokens(user);
 
-    const accessToken &#x3D; this.jwtService.signAsync(payload, options);
-
-    return accessToken;
+    return tokens;
   }
 }
 </code></pre>

@@ -156,17 +156,26 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { IsBoolean, IsEnum, IsISO8601, IsString } from &#x27;class-validator&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { IsDate, IsEnum, IsString } from &#x27;class-validator&#x27;;
 import { IsOptional } from &#x27;class-validator&#x27;;
 import { IntersectionType } from &#x27;@nestjs/swagger&#x27;;
 
+import { ItemCategory } from &#x27;../enums/itemCategory.enum&#x27;;
 import { ItemStatus } from &#x27;../enums/itemStatus.enum&#x27;;
 import { PaginationQueryDto } from &#x27;src/common/pagination/dtos/pagination-query.dto&#x27;;
+import { Type } from &#x27;class-transformer&#x27;;
 
 /**
  * Base Data transfer object for getting items
  */
 class GetItemsBaseDto {
+  /**
+   * The search query
+   */
+  @IsString()
+  @IsOptional()
+  search?: string;
+
   /**
    * The status query
    */
@@ -179,27 +188,22 @@ class GetItemsBaseDto {
    */
   @IsString()
   @IsOptional()
-  category?: string;
+  category?: ItemCategory;
 
   /**
-   * The archived query
+   * The start of the date range (from)
    */
-  @IsBoolean()
+  @IsDate()
   @IsOptional()
-  isArchived?: boolean;
-
-  /**
-   * The from date range query
-   */
-  @IsISO8601()
-  @IsOptional()
+  @Type(() &#x3D;&gt; Date)
   from?: Date;
 
   /**
-   * The to date range query
+   * The end of the date range (to)
    */
-  @IsISO8601()
+  @IsDate()
   @IsOptional()
+  @Type(() &#x3D;&gt; Date)
   to?: Date;
 }
 

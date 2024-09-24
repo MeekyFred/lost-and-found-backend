@@ -319,7 +319,7 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>signToken(userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, expiresIn: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, payload?: T)</code>
+                    <code>signToken(userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, expiresIn: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, payload?: T)</code>
                 </td>
             </tr>
 
@@ -360,7 +360,7 @@
                                         <tr>
                                                 <td>userId</td>
                                             <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                             </td>
 
                                             <td>
@@ -441,8 +441,8 @@ export class GenerateTokensProvider {
    * @param payload
    * @returns token
    */
-  public async signToken&lt;T&gt;(userId: number, expiresIn: number, payload?: T) {
-    const payloadData &#x3D; { sub: userId, ...payload };
+  public async signToken&lt;T&gt;(userId: string, expiresIn: number, payload?: T) {
+    const payloadData &#x3D; { id: userId, ...payload };
 
     const options: JwtSignOptions &#x3D; {
       audience: this.jwtConfiguration.audience,
@@ -462,12 +462,16 @@ export class GenerateTokensProvider {
    * @returns tokens
    */
   public async generateTokens(user: User) {
+    const payload: Partial&lt;IActiveUser&gt; &#x3D; {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      phoneNumber: user.phoneNumber,
+      role: user.role,
+    };
+
     const [accessToken, refreshToken] &#x3D; await Promise.all([
-      this.signToken&lt;Partial&lt;IActiveUser&gt;&gt;(
-        user.id,
-        this.jwtConfiguration.accessTokenTTL,
-        { email: user.email },
-      ),
+      this.signToken(user.id, this.jwtConfiguration.accessTokenTTL, payload),
       this.signToken(user.id, this.jwtConfiguration.refreshTokenTTL),
     ]);
     return { accessToken, refreshToken };
